@@ -154,7 +154,7 @@ span {
     visibility: visible;
     pointer-events: all;
 }
-.modal-sidebar {
+#modal-container .modal-sidebar {
     position: relative;
     margin-left: auto;
     height: 100vh;
@@ -162,7 +162,7 @@ span {
     padding: 10px 40px;
     background-color: var(--second-bgcolor);
     box-shadow: -8px 0px 20px 8px #c5c5c5f2;
-    transition: width 0.15s linear;
+    transition: all 0.15s linear;
 }
 #modal-container.show .modal-sidebar {
     width: 310px;

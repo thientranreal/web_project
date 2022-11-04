@@ -51,13 +51,19 @@ var startGame = function() {
     }
 }
 
-document.getElementById('trochoi').addEventListener('click', function() {
+var playGame = function() {
     document.getElementById('guessing-game').setAttribute('style', 'display: block;');
     for (let op of options) {
         op.classList.remove('correct');
         op.classList.remove('wrong');
     }
     startGame();
+}
+
+document.getElementById('trochoi').addEventListener('click', playGame);
+document.getElementById('trochoires').addEventListener('click', function() {
+    playGame();
+    close_menu();
 });
 // end load game =========================================
 
