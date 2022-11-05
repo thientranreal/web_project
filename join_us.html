@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            border: 0;
+            padding: 0;
+            font-size: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #join_us-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.044);
+            height: 100vh;
+            position: relative;
+        }
+        #join_us-form-wrapper{
+            background-color: #474a59;
+            height: 470px;
+            width: 450px;
+        }
+        #join_us-header {
+            margin-top: 30px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            display: inline-block;
+            margin-bottom: 50px;
+        }
+        #join_us-header h1 {
+            font-size: 1.5rem;
+            font-weight: 750;
+            color: #f5f5f5;
+        }
+        form > label, form > input, #submit-reset > input {
+            display: block;
+            color: #f5f5f5;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        form > label, form > input, .underline {
+            margin-left: 52px;
+        }
+        input {
+            background: none;
+            outline: none !important;
+            margin-bottom: 2px;
+        }
+        .underline {
+            width: 0;
+            height: 2.25px;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, rgba(58,180,176,1) 0%, rgba(173,29,253,1) 50%, rgba(252,69,69,1) 100%);
+            transition: width 0.25s linear;
+        }
+        input:focus+.underline, input {
+            width: 60%;
+        }
+        #submit-reset {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        #submit-reset > input {
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+        #submit-reset > input:hover {
+            color: rgb(58,180,176);
+            opacity: 1;
+            font-size: 1.7rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="join_us-wrapper">
+        <div id="join_us-form-wrapper">
+            <div id="join_us-header">
+                <h1>Join Us</h1>
+            </div>
+            <form action="">
+                <label for="username">Username</label>
+                <input type="text" id="username">
+                <div class="underline"></div>
+                <label for="password">Password</label>
+                <input type="password" id="password">
+                <div class="underline"></div>
+                <label for="r-password">Retype Password</label>
+                <input type="password" id="r-password">
+                <div class="underline"></div>
+                <label for="email">Email</label>
+                <input type="text" id="email">
+                <div class="underline"></div>
+                <div id="submit-reset">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+    <script src="./src/js/database.js"></script>
+    <script src="./src/js/jquery.js"></script>
+    <script src="./src/js/join_us_script.js"></script>
+</html>
