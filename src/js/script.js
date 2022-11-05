@@ -1,4 +1,4 @@
-// variable===================================================================================================
+// variable and class ===================================================================================================
 class Question {
     constructor(img_url, op1, op2, op3, op4, answer) {
         this.img_url = img_url;
@@ -29,53 +29,45 @@ var question_list = [
 var users = [
     new User('', 'admin', '123456', 'thientt2612@gmail.com')
 ];
-var options = document.getElementsByClassName("option");
-var randomNum;
 //==========================================================================================================
-
-// function===============================================================================================
-
-// load game=====================================
-var checkAnswer = function() {
-    if (this.innerHTML == question_list[randomNum].answer) {
-        this.classList.add('correct');
-    }
-    else {
-        this.classList.add('wrong');
-    }
-}
-
-var startGame = function() {
-    // random number for random access to question_list
-    randomNum = Math.floor(Math.random() * question_list.length);
-    document.getElementById("question-img").setAttribute("src", question_list[randomNum].img_url);
-    let op;
-    // add event listener for options
-    for (let i = 0; i < options.length; i++) {
-        op = `op${i + 1}`;
-        options[i].innerHTML = question_list[randomNum][op];
-        options[i].addEventListener('click', checkAnswer);
-    }
-}
-
-var playGame = function() {
-    document.getElementById('guessing-game').setAttribute('style', 'display: block;');
-    for (let op of options) {
-        op.classList.remove('correct');
-        op.classList.remove('wrong');
-    }
-    startGame();
-}
-// end load game =========================================
-
-// =========================================================================================================
+// Jquery
 $(document).ready(function() {
 // intialize=============================================================
     close_menu_fast();
     $('#modal-sign-in').hide();
+    let randomNum;
 //======================================================================
 
 // Play game===============================================================
+    let checkAnswer = function() {
+        if ($(this).html() == question_list[randomNum].answer) {
+            $(this).addClass('correct');
+        }
+        else {
+            $(this).addClass('wrong');
+        }
+    }
+    
+    let startGame = function() {
+        // random number for random access to question_list
+        randomNum = Math.floor(Math.random() * question_list.length);
+        $('#question-img').attr('src', question_list[randomNum].img_url);
+        let op;
+        // add event listener for options
+        let options = $('.option');
+        for (let i = 0; i < options.length; i++) {
+            op = `op${i + 1}`;
+            options[i].innerHTML = question_list[randomNum][op];
+        }
+        options.on('click', checkAnswer);
+    }
+    
+    let playGame = function() {
+        $('#guessing-game').css('display', 'block');
+        $('.option').removeClass('correct').removeClass('wrong');
+        startGame();
+    }
+
     $('#trochoi').on('click', playGame);
     $('#trochoires').on('click', function() {
         playGame();
@@ -103,20 +95,20 @@ $(document).ready(function() {
 
 // On / off sign in========================================================
     function resetFormLogin() {
-        let pass = $('#pass');
-        let username = $('#email');
-        pass.val('');
-        username.val('');
-        pass.get(0).setAttribute('style', 'border-bottom: solid 1px');
-        username.get(0).setAttribute('style', 'border-bottom: solid 1px');
+        $('#pass').val('').css('border-bottom', 'solid 1px');
+        $('#email').val('').css('border-bottom', 'solid 1px');
     }
+
     let show_signin = function() {
         $('#modal-sign-in').slideDown();
     }
+
     let close_signin = function() {
         $('#modal-sign-in').slideUp();
         resetFormLogin();
     }
+
+    // add event listener
     $('#show-sign-in').on('click', show_signin);
     $('#show-sign-in-res').on('click', function() {
         close_menu();
@@ -143,13 +135,13 @@ $(document).ready(function() {
                 userinput.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
                 return;
             }
-        } 
+        }
     });
 
     let inputChange = function() {
-        this.setAttribute('style', 'border-bottom: solid 2px rgb(131,58,180)');
+        $(this).css('border-bottom', 'solid 2px rgb(131,58,180)');
     }
-    $('#pass').get(0).addEventListener('input', inputChange);
-    $('#email').get(0).addEventListener('input', inputChange);
+    $('#pass').on('input', inputChange);
+    $('#email').on('input', inputChange);
 // End validate sign in ======================================================
 });

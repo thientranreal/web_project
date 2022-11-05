@@ -185,6 +185,7 @@ span {
     background-color: #474a59;
     box-shadow: 1px 0px 20px 8px #474a5940;
     padding-top: 60px;
+    position: relative;
 }
 #login-header {
     font-size: 4rem;
@@ -346,5 +347,27 @@ span {
     }
     .menu-res > a {
         margin: 0 5px;
+    }
+}
+@media screen and (max-width: 810px) {
+    #login-desc {
+        display: none;
+    }
+}
+@media screen and (max-width: 360px) {
+    #login-form {
+        width: 310px;
+    }
+}
+@media screen and (max-width: 280px) {
+    #login-form {
+        width: 250px;
+    }
+    #login-form label, input {
+        font-size: 0.7rem;
+        margin-left: 42px;
+    }
+    #login-form span a{
+        font-size: 0.7rem;
     }
 }
