@@ -147,25 +147,81 @@ span {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.044);
     backdrop-filter: blur(4px);
-    visibility: hidden;
-    pointer-events: none;
-}
-#modal-container.show {
-    visibility: visible;
-    pointer-events: all;
 }
 #modal-container .modal-sidebar {
     position: relative;
     margin-left: auto;
     height: 100vh;
-    width: 0;
+    width: 310px;
     padding: 10px 40px;
+    right: -310px;
     background-color: var(--second-bgcolor);
     box-shadow: -8px 0px 20px 8px #c5c5c5f2;
-    transition: all 0.15s linear;
 }
-#modal-container.show .modal-sidebar {
-    width: 310px;
+#modal-sign-in {
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.044);
+    position: absolute;
+    width: 100%;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#modal-sign-in-wrapper {
+    display: flex;
+    align-items: center;
+}
+#login-desc {
+    padding: 50px 0 0 50px;
+    height: 322px;
+    width: 363px;
+    background-color: var(--second-bgcolor);
+    box-shadow: 0px 1px 5px 4px #ffffffb3;
+}
+#login-form {
+    height: 374px;
+    width: 350px;
+    background-color: #474a59;
+    box-shadow: 1px 0px 20px 8px #474a5940;
+    padding-top: 60px;
+}
+#login-header {
+    font-size: 4rem;
+    font-weight: 750;
+}
+#login-text {
+    padding: 40px 67px 0 0;
+}
+#login-form label, input {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: var(--background-color);
+    background: transparent;
+    margin-left: 55px;
+}
+#login-form input {
+    border-bottom: solid 1px;
+    padding: 4px;
+    outline: none !important;
+}
+#login-form input:focus {
+    border-bottom: solid 2px rgb(131,58,180);
+    padding: 4px;
+    outline: none !important;
+}
+#login-form input:last-child {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 50px;
+    border: none;
+    color: #696b74;
+    font-size: 1.2rem;
+}
+#login-form input:last-child:hover {
+    color: var(--background-color);
+    cursor: pointer;
 }
 .sidebar-item {
     color: black;
@@ -232,6 +288,7 @@ span {
 }
 .option-list{
     height: 60%;
+    margin-top: 20px;
 }
 .option {
     border: 1px solid rgb(160, 158, 158);

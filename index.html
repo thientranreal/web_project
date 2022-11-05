@@ -22,7 +22,7 @@
                     <span>|</span>
                     <li class="navbar-item"><a class="navbar-link remove-link" href="#">Join Us</a></li>
                     <span>|</span>
-                    <li class="navbar-item"><a class="navbar-link remove-link" href="#">Sign In</a></li>
+                    <li id="show-sign-in" class="navbar-item"><a class="navbar-link remove-link" href="#">Sign In</a></li>
                 </ul>
             </div>
             <div class="navbar-main navbar-main-res">
@@ -51,6 +51,24 @@
         </nav>
 <!-- End navbar -->
 
+<!-- Modal sign in -->
+        <div id="modal-sign-in">
+            <div id="modal-sign-in-wrapper">
+                <div id="login-desc">
+                    <p id="login-header">Login</p>
+                    <p id="login-text">By logging in you agree to the ridiculously long terms that you didn't bother to read</p>
+                </div>
+                <form action="" id="login-form">
+                    <label for="email">Email or Username</label>
+                    <input type="text" id="email">
+                    <label for="pass">Password</label>
+                    <input type="password" id="pass">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+<!-- End Modal sign in -->
+
 <!-- Modal sidebar -->
         <div id="modal-container" class="">
             <div class="modal-sidebar">
@@ -58,7 +76,7 @@
                     <a href="#" id="menu-close" class="remove-link circle-outer" style="margin-left: auto;"><i class="fa-solid fa-xmark navbar-item-icon"></i></a>
                 </div>
                 <ul class="sidebar-content" style="list-style-type: none;">
-                    <li><a href="#" class="remove-link sidebar-item">Trang chủ</a></li>
+                    <li><a href="./index.html" class="remove-link sidebar-item">Trang chủ</a></li>
                     <li><a href="#" class="remove-link sidebar-item" id="trochoires">Trò chơi</a></li>
                     <li><a href="#" class="remove-link sidebar-item">Từ vựng</a></li>
                     <li><a href="#" class="remove-link sidebar-item">Nghe</a></li>
@@ -72,7 +90,7 @@
                     <p style="color: #7e7b7b; padding-bottom: 30px;">Become a Member. <a href="#" style="text-decoration: none; color: black;">Learn more</a></p>
                     <div class="wrapper-sign-in">
                         <a href="#" class="remove-link join-us">Join Us</a>
-                        <a href="#" class="remove-link sign-in">Sign In</a>
+                        <a href="#" id="show-sign-in-res" class="remove-link sign-in">Sign In</a>
                     </div>
                 </div>
             </div>
@@ -108,5 +126,6 @@
     </div>
 
 </body>
+<script src="./src/js/jquery.js"></script>
 <script src="./src/js/script.js"></script>
 </html>
