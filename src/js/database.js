@@ -14,9 +14,6 @@ class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.toString = function () {
-            return `${this.img_url},${this.username},${this.password},${this.email}`;
-        }
     }
 }
 var question_list = [
@@ -27,3 +24,7 @@ var question_list = [
     new Question("./src/img/game_image/cat.jpg", "cat", "dog", "mango", "apple", "cat"),
     new Question("./src/img/game_image/bag.jpg", "house", "dog", "bag", "apple", "bag"),
 ];
+var users = [];
+// Fetch accounts array from web browser ====================================
+var users = JSON.parse(localStorage.accounts);
+// ==========================================================================

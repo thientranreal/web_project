@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/font/fontawesome-free-6.2.0-web/css/all.css">
     <title>Document</title>
     <style>
         * {
@@ -61,8 +62,12 @@
             background: linear-gradient(90deg, rgba(58,180,176,1) 0%, rgba(173,29,253,1) 50%, rgba(252,69,69,1) 100%);
             transition: width 0.25s linear;
         }
-        input:focus+.underline, input {
+        input:focus + .underline, input {
             width: 60%;
+        }
+        .eye {
+            text-decoration: none;
+            color: #9b9da4;
         }
         #submit-reset {
             margin-top: 20px;
@@ -87,21 +92,23 @@
             <div id="join_us-header">
                 <h1>Join Us</h1>
             </div>
-            <form action="">
+            <form action="" style="position: relative;">
                 <label for="username">Username</label>
                 <input type="text" id="username">
                 <div class="underline"></div>
                 <label for="password">Password</label>
                 <input type="password" id="password">
                 <div class="underline"></div>
+                <a href="#" id="eye1" class="eye" style="position: absolute; left: 330px; top: 86px; display: none;"><i class="fa-regular fa-eye"></i></a>
                 <label for="r-password">Retype Password</label>
                 <input type="password" id="r-password">
                 <div class="underline"></div>
+                <a href="#" id="eye2" class="eye" style="position: absolute; left: 330px; top: 147px; display: none;"><i class="fa-regular fa-eye"></i></a>
                 <label for="email">Email</label>
                 <input type="text" id="email">
                 <div class="underline"></div>
                 <div id="submit-reset">
-                    <input type="submit" value="Submit">
+                    <input type="button" value="Submit">
                     <input type="reset" value="Reset">
                 </div>
             </form>

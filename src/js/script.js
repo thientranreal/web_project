@@ -62,8 +62,8 @@ $(document).ready(function() {
 
 // On / off sign in========================================================
     function resetFormLogin() {
-        $('#pass').val('').css('border-bottom', 'solid 1px');
-        $('#email').val('').css('border-bottom', 'solid 1px');
+        $('#pass').val('').css('border-bottom', 'solid 1px #f5f5f5');
+        $('#email').val('').css('border-bottom', 'solid 1px #f5f5f5');
     }
 
     let show_signin = function() {
@@ -85,7 +85,10 @@ $(document).ready(function() {
 
     $('#modal-sign-in-wrapper').on('click', function(event) {
         event.stopPropagation();
-    })
+    });
+    $('#login-form > span, #a-join-us').on('click', function() {
+        window.location.replace('./join_us.html');
+    });
 // End on / off sign in========================================================
 
 // Validate sign in ==========================================================
@@ -96,18 +99,17 @@ $(document).ready(function() {
         for (let user of users) {
             if ( (user.username == userinput.val() || user.email == userinput.val()) && user.password == pass.val()) {
                 close_signin();
-            }
-            else {
-                pass.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
-                userinput.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
                 return;
             }
         }
+        pass.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
+        userinput.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
+        userinput.focus();
     });
 
     let inputChange = function() {
         if ($(this).val() == '') {
-            $(this).css('border-bottom', 'solid 1px');
+            $(this).css('border-bottom', 'solid 1px #f5f5f5');
         }
         else {
             $(this).css('border-bottom', 'solid 2px rgb(131,58,180)');
