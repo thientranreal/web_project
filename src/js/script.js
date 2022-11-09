@@ -52,7 +52,7 @@ $(document).ready(function() {
     }
     let close_menu = function() {
         $('.modal-sidebar').animate({ right: '-310px' });
-        $('#modal-container').hide(600);
+        $('#modal-container').delay(500).hide(1);
     }
     let show_menu = function() {
         $('#modal-container').show();

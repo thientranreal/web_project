@@ -20,12 +20,11 @@ let regexUsername = new RegExp(/^[a-zA-Z0-9]+$/);
 
     // show icon eye for show and retype password
     $('#password, #r-password').on('input', function() {
-        let css_selector = `#${$(this).attr('id')}+.underline+.eye`;
         if ($(this).val() == '') {
-            $(css_selector).hide();
+            $(this).next().next().hide();
         }
         else {
-            $(css_selector).show();
+            $(this).next().next().show();
         }
     });
     // change icon eye to eyeslash and the opposite
@@ -35,79 +34,65 @@ let regexUsername = new RegExp(/^[a-zA-Z0-9]+$/);
         // user wants to see password
         if ($(this).html() == eye) {
             $(this).html(eye_slash);
-            // eye for password
-            if ($(this).attr('id') == 'eye1') {
-                $('#password').attr('type','text');
-            }
-            // eye for retype password
-            else if ($(this).attr('id') == 'eye2') {
-                $('#r-password').attr('type','text');
-            }
+            $(this).prev().prev().attr('type','text');
         }
         // user does not want to see password
         else if($(this).html() == eye_slash) {
             $(this).html(eye);
-            // eye for password
-            if ($(this).attr('id') == 'eye1') {
-                $('#password').attr('type','password');
-            }
-            // eye for retype password
-            else if ($(this).attr('id') == 'eye2') {
-                $('#r-password').attr('type','password');
-            }
+            $(this).prev().prev().attr('type','password');
         }
     });
 
     $('#submit-reset > input[value=Submit]').on('click', function() {
-        let inputs = $('#join_us-form-wrapper form > input');
+        let inputs = $(this).parent().siblings('input');
         // check username is valid
-        let input_tmp = inputs[0];
-        if (!regexUsername.test(input_tmp.value)) {
+        let input_tmp = inputs.eq(0);
+        if (!regexUsername.test(input_tmp.val()) ) {
             alert('Invalid Username.');
             input_tmp.focus();
             return;
         }
         // check password is valid
-        input_tmp = inputs[1];
-        if (!regexPass.test(input_tmp.value)) {
+        input_tmp = inputs.eq(1);
+        if (!regexPass.test(input_tmp.val()) ) {
             alert('Invalid Password. Minimum eight characters, at least one letter and one number.');
             input_tmp.focus();
             return;
         }
         // check retype password is correct
-        input_tmp = inputs[2];
-        if (input_tmp.value != inputs[1].value) {
+        input_tmp = inputs.eq(2);
+        if (input_tmp.val() != inputs.eq(1).val() ) {
             alert('Password does not match.');
             input_tmp.focus();
             return;
         }
         // check email is valid
-        input_tmp = inputs[3];
-        if (!regexEmail.test(input_tmp.value)) {
+        input_tmp = inputs.eq(3);
+        if (!regexEmail.test(input_tmp.val()) ) {
             alert('Invalid Email.');
             input_tmp.focus();
             return;
         }
         // check username or email is already existed
         for (let user of users) {
-            if (user.username == inputs[0].value) {
+            if (user.username == inputs.eq(0).val() ) {
                 alert('Username is already in use. Please choose another name.');
-                inputs[0].focus();
+                inputs.eq(0).focus();
                 return;
             }
-            if (user.email == inputs[3].value) {
+            if (user.email == inputs.eq(3).val() ) {
                 alert('Email is already in use. Please choose another email.');
-                inputs[3].focus();
+                inputs.eq(3).focus();
                 return;
             }
         }
         // add new user to local storage
-        users.push(new User('', inputs[0].value, inputs[1].value, inputs[3].value));
+        users.push(new User('', inputs.eq(0).val(), inputs.eq(1).val(), inputs.eq(3).val()) );
         localStorage.setItem('accounts', JSON.stringify(users));
-        localStorage.setItem('active', inputs[0].value);
+        localStorage.setItem('active', inputs.eq(0).val() );
         // reset input field
         for (let inp of inputs) {
-            inp.value = '';
+            $(inp).val('');
         }
         alert('Success.');
         window.location.replace('./index.html');
