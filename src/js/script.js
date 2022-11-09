@@ -3,6 +3,9 @@ $(document).ready(function() {
     close_menu_fast();
     $('#modal-sign-in').hide();
     let randomNum;
+    if (active != undefined) {
+        $('.gap span').html(`Hello ${active}`);
+    }
 //======================================================================
 
 // Play game===============================================================
@@ -98,6 +101,8 @@ $(document).ready(function() {
 
         for (let user of users) {
             if ( (user.username == userinput.val() || user.email == userinput.val()) && user.password == pass.val()) {
+                $('.gap span').html(`Hello ${user.username}`);
+                localStorage.setItem('active', user.username);
                 close_signin();
                 return;
             }
@@ -118,4 +123,33 @@ $(document).ready(function() {
     $('#pass').on('input', inputChange);
     $('#email').on('input', inputChange);
 // End validate sign in ======================================================
+
+// Show eye for password input ===============================================
+    $('#pass').on('input', function() {
+        let css_selector = '#pass+.eye';
+        if ($(this).val() == '') {
+            $(css_selector).hide();
+        }
+        else {
+            $(css_selector).show();
+        }
+    });
+
+    $('.eye').on('click', function() {
+        let eye_slash = '<i class="fa-regular fa-eye-slash"></i>';
+        let eye = '<i class="fa-regular fa-eye"></i>';
+        // user wants to see password
+        if ($(this).html() == eye) {
+            $(this).html(eye_slash);
+            // eye for password
+            $('#pass').attr('type','text');
+        }
+        // user does not want to see password
+        else if($(this).html() == eye_slash) {
+            $(this).html(eye);
+            // eye for password
+            $('#pass').attr('type','password');
+        }
+    });
+// End show eye for password input ===========================================
 });

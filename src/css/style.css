@@ -172,6 +172,12 @@ span {
     display: flex;
     align-items: center;
 }
+.gap {
+    padding-top: calc(var(--first-nav-height) + var(--second-nav-height));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 #login-desc {
     padding: 50px 0 0 50px;
     height: 322px;

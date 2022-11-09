@@ -28,3 +28,4 @@ var users = [];
 // Fetch accounts array from web browser ====================================
 var users = JSON.parse(localStorage.accounts);
 // ==========================================================================
+var active = localStorage.active;

@@ -65,7 +65,10 @@
                     <label for="email">Email or Username</label>
                     <input type="text" id="email">
                     <label for="pass">Password</label>
-                    <input type="password" id="pass">
+                    <div style="display: flex; justify-content: space-between; padding-right: 60px;">
+                        <input type="password" id="pass">
+                        <a href="#" class="eye" style="text-decoration: none; color: #9b9da4; display: none;"><i class="fa-regular fa-eye"></i></a>
+                    </div>
                     <input type="button" value="Submit">
                 </form>
             </div>
@@ -100,7 +103,9 @@
         </div>
 <!-- End modal sidebar -->
 
-        <div class="gap"></div>
+        <div class="gap">
+            <span></span>
+        </div>
 
 <!-- Guessing game -->
         <div id="guessing-game" style="display: none;">

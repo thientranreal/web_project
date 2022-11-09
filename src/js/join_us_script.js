@@ -104,6 +104,7 @@ let regexUsername = new RegExp(/^[a-zA-Z0-9]+$/);
         // add new user to local storage
         users.push(new User('', inputs[0].value, inputs[1].value, inputs[3].value));
         localStorage.setItem('accounts', JSON.stringify(users));
+        localStorage.setItem('active', inputs[0].value);
         // reset input field
         for (let inp of inputs) {
             inp.value = '';
