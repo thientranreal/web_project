@@ -1,10 +1,11 @@
 $(document).ready(function() {
 // intialize=============================================================
-    close_menu_fast();
-    $('#modal-sign-in').hide();
+    $('#modal-container, #modal-sign-in').hide();
     let randomNum;
     if (active != undefined) {
         $('.gap span').html(`Hello ${active}`);
+        $('#show-sign-in-res').html('Log out');
+        $('#show-sign-in').children().html('Log out');
     }
 //======================================================================
 
@@ -46,17 +47,15 @@ $(document).ready(function() {
 // End play game=================================================================
 
 // On / off sider bar====================================================
-    function close_menu_fast() {
-        $('.modal-sidebar').animate({ right: '-310px' });
-        $('#modal-container').hide();
-    }
     let close_menu = function() {
-        $('.modal-sidebar').animate({ right: '-310px' });
-        $('#modal-container').delay(500).hide(1);
+        $('.modal-sidebar').animate({ right: '-310px' }, function() {
+            $(this).parent().hide();
+        });
     }
     let show_menu = function() {
-        $('#modal-container').show();
-        $('.modal-sidebar').animate({ right: '0px' });
+        $('#modal-container').show(1, function() {
+            $(this).find('.modal-sidebar').animate({ right: '0px' });
+        });
     }
 
     $('#menu-close').on('click', close_menu);
@@ -69,27 +68,38 @@ $(document).ready(function() {
         $('#email').val('').css('border-bottom', 'solid 1px #f5f5f5');
     }
 
-    let show_signin = function() {
-        $('#modal-sign-in').slideDown();
-    }
-
     let close_signin = function() {
         $('#modal-sign-in').slideUp();
         resetFormLogin();
     }
 
+    function signInLogOut() {
+        let sign_in = $('#show-sign-in a');
+        let sign_in_res = $('#show-sign-in-res');
+        if (sign_in.html() == 'Sign In' && sign_in_res.html() == 'Sign In') {
+            $('#modal-sign-in').slideDown();
+        }
+        else {
+            sign_in.html('Sign In');
+            sign_in_res.html('Sign In');
+            localStorage.removeItem('active');
+            $('.gap span').html('');
+        }
+    }
+
     // add event listener
-    $('#show-sign-in').on('click', show_signin);
+    $('#show-sign-in').on('click', signInLogOut);
     $('#show-sign-in-res').on('click', function() {
         close_menu();
-        show_signin();
+        signInLogOut();
     });
+
     $('#modal-sign-in').on('click', close_signin);
 
     $('#modal-sign-in-wrapper').on('click', function(event) {
         event.stopPropagation();
     });
-    $('#login-form > span, #a-join-us').on('click', function() {
+    $('#login-form > span, #a-join-us, #join-us-res').on('click', function() {
         window.location.replace('./join_us.html');
     });
 // End on / off sign in========================================================
@@ -101,7 +111,10 @@ $(document).ready(function() {
 
         for (let user of users) {
             if ( (user.username == userinput.val() || user.email == userinput.val()) && user.password == pass.val()) {
-                $('.gap span').html(`Hello ${user.username}`);
+                // say Hello user and change sign in to logout
+                $(this).closest('#modal-sign-in').siblings('.gap').children().html(`Hello ${user.username}`);
+                $(this).closest('#modal-sign-in').siblings('#navbar').find('#show-sign-in').children().html('Log out');
+                $(this).closest('#modal-sign-in').siblings('#modal-container').find('#show-sign-in-res').html('Log out');
                 localStorage.setItem('active', user.username);
                 close_signin();
                 return;
