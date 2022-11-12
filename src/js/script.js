@@ -1,11 +1,11 @@
 $(document).ready(function() {
 // intialize=============================================================
-    $('#modal-container, #modal-sign-in').hide();
     let randomNum;
     if (active != undefined) {
-        $('.gap span').html(`Hello ${active}`);
-        $('#show-sign-in-res').html('Log out');
-        $('#show-sign-in').children().html('Log out');
+        let $gap = $('.gap');
+        $gap.children(':first').html(`Hello ${active}`);
+        $gap.siblings('#navbar').find('#show-sign-in').children(':first').html('Log out');
+        $gap.siblings('#modal-container').find('#show-sign-in-res').html('Log out');
     }
 //======================================================================
 
@@ -113,27 +113,27 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 // End on / off sider bar=================================================
 
 // On / off sign in========================================================
-    function resetFormLogin() {
-        $('#pass').val('').css('border-bottom', 'solid 1px #f5f5f5');
-        $('#email').val('').css('border-bottom', 'solid 1px #f5f5f5');
-    }
 
     let close_signin = function() {
-        $('#modal-sign-in').slideUp();
-        resetFormLogin();
+        let $modal_sign_in = $('#modal-sign-in');
+        $modal_sign_in.slideUp();
+        //reset form
+        $modal_sign_in.find('#email, #pass').val('').css('border-bottom', 'solid 1px #f5f5f5');
     }
 
     function signInLogOut() {
-        let sign_in = $('#show-sign-in a');
-        let sign_in_res = $('#show-sign-in-res');
-        if (sign_in.html() == 'Sign In' && sign_in_res.html() == 'Sign In') {
-            $('#modal-sign-in').slideDown();
+        let $sign_in = $('#show-sign-in a');
+        let $sign_in_res = $sign_in.closest('#navbar').siblings('#modal-container').find('#show-sign-in-res');
+        let $modal_sign_in = $sign_in.closest('#navbar').siblings('#modal-sign-in');
+
+        if ($sign_in.html() == 'Sign In' && $sign_in_res.html() == 'Sign In') {
+            $modal_sign_in.slideDown();
         }
         else {
-            sign_in.html('Sign In');
-            sign_in_res.html('Sign In');
+            $sign_in.html('Sign In');
+            $sign_in_res.html('Sign In');
             localStorage.removeItem('active');
-            $('.gap span').html('');
+            $modal_sign_in.siblings('.gap').children(':first').html('');
         }
     }
 
@@ -144,7 +144,10 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         signInLogOut();
     });
 
-    $('#modal-sign-in').on('click', close_signin);
+    $('#modal-sign-in').on('click', function() {
+        $(this).slideUp();
+        $(this).find('#email, #pass').val('').css('border-bottom', 'solid 1px #f5f5f5');
+    });
 
     $('#modal-sign-in-wrapper').on('click', function(event) {
         event.stopPropagation();
@@ -162,7 +165,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         for (let user of users) {
             if ( (user.username == userinput.val() || user.email == userinput.val()) && user.password == pass.val()) {
                 // say Hello user and change sign in to logout
-                $(this).closest('#modal-sign-in').siblings('.gap').children().html(`Hello ${user.username}`);
+                $(this).closest('#modal-sign-in').siblings('.gap').children(':first').html(`Hello ${user.username}`);
                 $(this).closest('#modal-sign-in').siblings('#navbar').find('#show-sign-in').children().html('Log out');
                 $(this).closest('#modal-sign-in').siblings('#modal-container').find('#show-sign-in-res').html('Log out');
                 localStorage.setItem('active', user.username);
@@ -183,8 +186,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             $(this).css('border-bottom', 'solid 2px rgb(131,58,180)');
         }
     }
-    $('#pass').on('input', inputChange);
-    $('#email').on('input', inputChange);
+    $('#pass, #email').on('input', inputChange);
 // End validate sign in ======================================================
 
 // Show eye for password input ===============================================

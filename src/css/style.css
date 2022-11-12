@@ -153,6 +153,7 @@ span {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.044);
     backdrop-filter: blur(4px);
+    display: none;
 }
 #modal-container .modal-sidebar {
     position: relative;
