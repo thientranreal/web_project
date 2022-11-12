@@ -22,7 +22,15 @@ var question_list = [
     new Question("./src/img/game_image/dog.jpg", "dog", "cat", "human", "fly", "dog"),
     new Question("./src/img/game_image/laptop.jpg", "television", "cell phone", "laptop", "microwave", "laptop"),
     new Question("./src/img/game_image/cat.jpg", "cat", "dog", "mango", "apple", "cat"),
-    new Question("./src/img/game_image/bag.jpg", "house", "dog", "bag", "apple", "bag"),
+    new Question("./src/img/game_image/bag.jpg", "house", "dog", "bag", "apple", "bag")
+];
+
+var question_sentence = [
+    new Question("Tôi đến từ Việt Nam", "from", "I", "Viet Nam", "am", "I am from Viet Nam"),
+    new Question("Tôi thích ăn kem", "I", "eating", "love", "ice cream", "I love eating ice cream"),
+    new Question("Tôi là ca sĩ", "am", "a", "I", "singer", "I am a singer"),
+    new Question("Tôi đang học ở SGU", "studying", "am", "at SGU", "I", "I am studying at SGU"),
+    new Question("Tôi thích đọc sách", "I", "reading", "love", "book", "I love reading book")
 ];
 var users = [];
 // Fetch accounts array from web browser ====================================

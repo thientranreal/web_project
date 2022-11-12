@@ -9,41 +9,91 @@ $(document).ready(function() {
     }
 //======================================================================
 
-// Play game===============================================================
-    let checkAnswer = function() {
-        if ($(this).html() == question_list[randomNum].answer) {
-            $(this).addClass('correct');
+// Navbar navigation =======================================================
+    $('#navbar .navbar-main li > a').on('click', function() {
+        if ($(this).is('.active')) {
+            return;
         }
-        else {
-            $(this).addClass('wrong');
-        }
+        let $navbar_nav = $(this).closest('.navbar-nav');
+        $navbar_nav.find('a.active').removeClass('active');
+        $(this).addClass('active');
+
+        let $panelToShow = $(this).attr('rel');
+        let $toBodyContainer = $(this).closest('#navbar').siblings('#body-container');
+        $toBodyContainer.find('.panel.active').hide(300, function() {
+            $(this).removeClass('active');
+
+            $toBodyContainer.find('#'+$panelToShow).show(300, function() {
+                $(this).addClass('active');
+            });
+        });
+    })
+// End navbar navigation =================================================
+
+// Navbar navigation res =======================================================
+$('#modal-container .sidebar-content li > a').on('click', function() {
+    close_menu();
+    if ($(this).is('.active')) {
+        return;
     }
-    
-    let startGame = function() {
-        // random number for random access to question_list
-        randomNum = Math.floor(Math.random() * question_list.length);
-        $('#question-img').attr('src', question_list[randomNum].img_url);
+    let $sidebar_content = $(this).closest('.sidebar-content');
+    $sidebar_content.find('a.active').removeClass('active');
+    $(this).addClass('active');
+
+    let $panelToShow = $(this).attr('rel');
+    let $toBodyContainer = $(this).closest('#modal-container').siblings('#body-container');
+    $toBodyContainer.find('.panel.active').hide(300, function() {
+        $(this).removeClass('active');
+
+        $toBodyContainer.find('#'+$panelToShow).show(300, function() {
+            $(this).addClass('active');
+        });
+    });
+})
+// End navbar navigation res =================================================
+
+// Play game===============================================================
+    function loadGuessingGame(pointer, options, randomNum, array) {
+        pointer.attr('src', array[randomNum].img_url);
         let op;
-        // add event listener for options
-        let options = $('.option');
         for (let i = 0; i < options.length; i++) {
             op = `op${i + 1}`;
-            options[i].innerHTML = question_list[randomNum][op];
+            options.eq(i).html(array[randomNum][op]);
         }
-        options.on('click', checkAnswer);
     }
     
-    let playGame = function() {
-        $('#guessing-game').css('display', 'block');
-        $('.option').removeClass('correct').removeClass('wrong');
-        startGame();
-    }
+    function startGame() {
+        // random number for random access to question_list
+        randomNum = Math.floor(Math.random() * question_list.length);
+        let $question_img = $('#question-img');
+        let options = $question_img.parent().siblings('.option-list').find('.option');
+        
+        // reset css for options
+        options.removeClass('correct').removeClass('wrong');
+        loadGuessingGame($question_img, options, randomNum, question_list);
 
-    $('#trochoi').on('click', playGame);
-    $('#trochoires').on('click', function() {
-        playGame();
-        close_menu();
-    });
+        // add event listener for options
+        options.on('click', function() {
+            // stop user from clicking it again
+            $(this).css('pointer-events', 'none');
+
+            if ($(this).html() == question_list[randomNum].answer) {
+                $(this).addClass('correct');
+
+                //restart game after 1 second
+                setTimeout(function() {
+                    options.removeClass('correct').removeClass('wrong').css('pointer-events', '');
+                    randomNum = Math.floor(Math.random() * question_list.length);
+                    loadGuessingGame($question_img, options, randomNum, question_list);
+                }, 1000);
+            }
+            else {
+                $(this).addClass('wrong');
+            }
+        });
+    }
+    
+    $('#trochoi, #trochoires').on('click', startGame);
 // End play game=================================================================
 
 // On / off sider bar====================================================
@@ -165,4 +215,68 @@ $(document).ready(function() {
         }
     });
 // End show eye for password input ===========================================
+
+// Ghep cau game =============================================================
+    function loadDataGhepCau(pointer, options, randomNum, array) {
+        pointer.html(array[randomNum].img_url);
+        let op;
+        options.css({
+            "pointer-events": "",
+            "opacity": ""
+        });
+        for (let i = 0; i < options.length; i++) {
+            op = `op${i + 1}`;
+            options.eq(i).html(array[randomNum][op]);
+        }
+    }
+    function startGhepCau() {
+        randomNum = Math.floor(Math.random() * question_sentence.length);
+        // fill data for game
+        let sentence_game = $(this).attr('rel');
+        let $toBodyContainer = $('#body-container');
+        let $sgquestion = $toBodyContainer.find('#' + sentence_game + ' #sgquestion');
+        let options = $toBodyContainer.find('#' + sentence_game + ' .option');
+        loadDataGhepCau($sgquestion, options, randomNum, question_sentence);
+        let sentence = "Your answer is: ", count = 0, $sganswer = $('#sganswer > span');
+        $sganswer.html(sentence);
+
+        options.on('click', function() {
+            $(this).css({
+                "pointer-events": "none",
+                "opacity": "0.5"
+            });
+            sentence += $(this).html() + ' ';
+            count++;
+            $sganswer.html(sentence);
+            
+            if (count == 4) {
+                // check answer
+                options.css({
+                    "opacity": ""
+                });
+                if (sentence.replace('Your answer is: ', '').trim() == question_sentence[randomNum].answer) {
+                    options.addClass('correct');
+                }
+                else {
+                    options.addClass('wrong');
+                }
+                // end check answer
+                // start a new game after 1 second
+                setTimeout(function() {
+                    randomNum = Math.floor(Math.random() * question_sentence.length);
+                    options.removeClass('correct').removeClass('wrong').css({
+                        "pointer-events": "",
+                        "opacity": ""
+                    });
+                    loadDataGhepCau($sgquestion, options, randomNum, question_sentence);
+                    sentence = "Your answer is: ";
+                    count = 0;
+                    $sganswer.html(sentence);
+                }, 1000);
+            }
+        });
+    }
+
+    $('#ghepcau, #ghepcaures').on('click', startGhepCau);
+// End ghep cau game =========================================================
 });

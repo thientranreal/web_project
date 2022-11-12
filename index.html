@@ -30,12 +30,12 @@
                     <img src="./src/img/logo/logo_english.jpg" alt="my_logo" height="100%">
                 </a>
                 <ul class="navbar-nav navbar-center navbar-nav-res">
-                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" href="./index.html">Trang chủ</a></li>
-                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" href="#" id="trochoi">Trò chơi</a></li>
-                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" href="#">Từ vựng</a></li>
-                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" href="#">Nghe</a></li>
-                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" href="#">Liên hệ</a></li>
-                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" href="#">Giới thiệu</a></li>
+                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main active" rel="trangchu" href="#">Trang chủ</a></li>
+                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="guessing-game" href="#" id="trochoi">Trò chơi</a></li>
+                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="sentence-game" href="#" id="ghepcau">Ghép câu</a></li>
+                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game1" href="#">Game1</a></li>
+                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game2" href="#">Game2</a></li>
+                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="gioithieu" href="#">Giới thiệu</a></li>
                 </ul>
                 <div class="navbar-search-cart">
                     <div class="search-wrapper">
@@ -82,12 +82,12 @@
                     <a href="#" id="menu-close" class="remove-link circle-outer" style="margin-left: auto;"><i class="fa-solid fa-xmark navbar-item-icon"></i></a>
                 </div>
                 <ul class="sidebar-content" style="list-style-type: none;">
-                    <li><a href="./index.html" class="remove-link sidebar-item">Trang chủ</a></li>
-                    <li><a href="#" class="remove-link sidebar-item" id="trochoires">Trò chơi</a></li>
-                    <li><a href="#" class="remove-link sidebar-item">Từ vựng</a></li>
-                    <li><a href="#" class="remove-link sidebar-item">Nghe</a></li>
-                    <li><a href="#" class="remove-link sidebar-item">Liên hệ</a></li>
-                    <li><a href="#" class="remove-link sidebar-item">Giới thiệu</a></li>
+                    <li><a href="./index.html" class="remove-link sidebar-item active" rel="trangchu">Trang chủ</a></li>
+                    <li><a href="#" class="remove-link sidebar-item" rel="guessing-game" id="trochoires">Trò chơi</a></li>
+                    <li><a href="#" class="remove-link sidebar-item" rel="sentence-game" id="ghepcaures">Ghép câu</a></li>
+                    <li><a href="#" class="remove-link sidebar-item" rel="game1">Game1</a></li>
+                    <li><a href="#" class="remove-link sidebar-item" rel="game2">Game2</a></li>
+                    <li><a href="#" class="remove-link sidebar-item" rel="gioithieu">Giới thiệu</a></li>
                 </ul>
                 <div class="logo">
                     <a href="#" class="navbar-link-img"><img src="./src/img/logo/T.jpeg" alt="my_logo" height="100%"></a>
@@ -106,26 +106,71 @@
         <div class="gap">
             <span></span>
         </div>
-
-<!-- Guessing game -->
-        <div id="guessing-game" style="display: none;">
-            <div  class="question-img"><img src="" id="question-img" alt="NA" height="100%"></div>
-            <div class="option-list">
-                <div class="row-1">
-                    <span class="option">text</span>
-                    <span class="option">text</span>
-                </div>
-                
-                <div class="row-2">
-                    <span class="option">text</span>
-                    <span class="option">text</span>
-                </div>
-            </div>
-        </div>
-<!-- Guessing game -->
         
         <div id="body-container">
-            <div class="body-content"></div>
+        <!-- Trang chu -->
+            <div id="trangchu" class="panel active">
+
+            </div>
+        <!-- End Trang chu --> 
+
+        <!-- Guessing game -->
+            <div id="guessing-game" class="panel">
+                <div  class="question-img"><img src="" id="question-img" alt="NA" height="100%"></div>
+                <div class="option-list">
+                    <div class="row-1">
+                        <span class="option">text</span>
+                        <span class="option">text</span>
+                    </div>
+                    
+                    <div class="row-2">
+                        <span class="option">text</span>
+                        <span class="option">text</span>
+                    </div>
+                </div>
+            </div>
+        <!-- End Guessing game -->
+
+        <!-- Sentences game -->
+            <div id="sentence-game" class="panel">
+                <div id="display-sentence">
+                    <span id="sgquestion">Text</span>
+                    <div id="sganswer">
+                        <span></span>
+                        <div id="underline-sganswer"></div>
+                    </div>
+                </div>
+                <div class="option-list">
+                    <div class="row-1">
+                        <span class="option">text</span>
+                        <span class="option">text</span>
+                    </div>
+                    
+                    <div class="row-2">
+                        <span class="option">text</span>
+                        <span class="option">text</span>
+                    </div>
+                </div>
+            </div>
+        <!-- End Sentences game -->    
+            
+        <!-- Game 1 -->
+            <div id="game1" class="panel">
+
+            </div>
+        <!-- End Game 1 --> 
+
+        <!-- Game 2 -->
+            <div id="game2" class="panel">
+
+            </div>
+        <!-- End Game 2 --> 
+
+        <!-- Gioi thieu -->
+            <div id="gioithieu" class="panel">
+
+            </div>
+        <!-- End Gioi thieu --> 
         </div>
 
         <div id="footer">
