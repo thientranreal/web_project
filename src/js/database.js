@@ -16,6 +16,14 @@ class User {
         this.email = email;
     }
 }
+class Word {
+    constructor(word, type, spelling, meaning) {
+        this.word = word;
+        this.type = type;
+        this.spelling = spelling;
+        this.meaning = meaning;
+    }
+}
 var question_list = [
     new Question("./src/img/game_image/apple.jpg", "banana", "cabbage", "mango", "apple", "apple"),
     new Question("./src/img/game_image/bike.jpg", "car", "bike", "bridge", "house", "bike"),

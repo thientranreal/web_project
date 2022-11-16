@@ -76,7 +76,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         options.on('click', function() {
             // stop user from clicking it again
             $(this).css('pointer-events', 'none');
-
+            // so sanh
             if ($(this).html() == question_list[randomNum].answer) {
                 $(this).addClass('correct');
 
@@ -281,4 +281,18 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 
     $('#ghepcau, #ghepcaures').on('click', startGhepCau);
 // End ghep cau game =========================================================
+
+// Search box ================================================================
+    //search animation
+    $('#search-animation').focus(function() {
+        // search animation expand middle
+        $(this).addClass('middle').closest('.navbar-search-cart').addClass('middle').prev().toggle();
+    });
+    
+    $('#search-animation').focusout(function() {
+        // move back to original size
+        $(this).removeClass('middle').closest('.navbar-search-cart').removeClass('middle').prev().delay(300).toggle(1);
+    });
+
+// End search box =============================================================
 });
