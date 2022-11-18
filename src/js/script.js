@@ -69,10 +69,11 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         let options = $question_img.parent().siblings('.option-list').find('.option');
         
         // reset css for options
-        options.removeClass('correct').removeClass('wrong');
+        options.removeClass('correct').removeClass('wrong').css('pointer-events', '');
         loadGuessingGame($question_img, options, randomNum, question_list);
 
         // add event listener for options
+        options.unbind('click');
         options.on('click', function() {
             // stop user from clicking it again
             $(this).css('pointer-events', 'none');
@@ -242,6 +243,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         let sentence = "Your answer is: ", count = 0, $sganswer = $('#sganswer > span');
         $sganswer.html(sentence);
 
+        options.unbind('click');
         options.on('click', function() {
             $(this).css({
                 "pointer-events": "none",
@@ -284,15 +286,97 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 
 // Search box ================================================================
     //search animation
-    $('#search-animation').focus(function() {
-        // search animation expand middle
-        $(this).addClass('middle').closest('.navbar-search-cart').addClass('middle').prev().toggle();
+    $('.navbar-search-cart').on('click', function(event) {
+        event.stopPropagation();
+        let $search_animation = $(this).find('#search-animation');
+        // if already in middle then return
+        if ($search_animation.is('.middle')) {
+            return;
+        }
+        $search_animation.css('opacity', '1').addClass('middle').closest('.navbar-search-cart').addClass('middle').prev().hide();
+        $search_animation.parent().next().slideDown(200);
     });
     
-    $('#search-animation').focusout(function() {
-        // move back to original size
-        $(this).removeClass('middle').closest('.navbar-search-cart').removeClass('middle').prev().delay(300).toggle(1);
+    $('#wrapper').on('click', function() {
+        let $search_animation = $(this).find('#navbar #search-animation');
+        // if already not in middle then return
+        if (!$search_animation.is('.middle')) {
+            return;
+        }
+        $search_animation.removeClass('middle').closest('.navbar-search-cart').removeClass('middle').prev().delay(300).show(1);
+        $search_animation.parent().next().slideUp(200);
     });
 
+    // search word
+    $('#search-animation').on('input', function() {
+        let current_word = $(this).val();
+        let result = "", exist = false;
+        let $search_result = $(this).parent().next();
+        // if word is empty
+        if (current_word == "") {
+            $search_result.html(current_word);
+            return;
+        }
+
+        // find current_word in vocabulary
+        for (let word of vocabulary) {
+            if (word.word.substring(0, current_word.length) == current_word) {
+                result += `<li>${word.word}</li>`;
+                $search_result.html(result);
+                exist = true;
+            }
+        }
+        // add click event for word
+        if (exist) {
+            $search_result.children().unbind('click');
+            $search_result.children().on('click', function() {
+                for (let word of vocabulary) {
+                    if (word.word == $(this).html()) {
+                        result = `<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`;
+                        $search_result.html(result);
+                    }
+                }
+            });
+        }
+        else {
+            $search_result.html(`<li>${current_word}</li>`);
+        }
+    });
+    // enter in search
+    $('#search-animation').keyup(function(e) {
+        if (e.keyCode == 13) {
+            let current_word = $(this).val();
+            let $search_result = $(this).parent().next();
+            if (current_word == '') {
+                return;
+            }
+
+            for (let word of vocabulary) {
+                if (word.word == current_word) {
+                    $search_result.html(`<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`);
+                    return;
+                }
+            }
+            $search_result.html(`<li>${current_word} is not available</li>`);
+        }
+    });
+    // add event click for search kinh lup
+    $('#search_icon').on('click', function() {
+        let $search_animation = $(this).next();
+        let current_word = $search_animation.val();
+        let $search_result = $search_animation.parent().next();
+        if ($search_animation.val() == '') {
+            return;
+        }
+
+        for (let word of vocabulary) {
+            if (word.word == current_word) {
+                $search_result.html(`<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`);
+                return;
+            }
+        }
+        $search_result.html(`<li>${current_word} is not available</li>`);
+
+    });
 // End search box =============================================================
 });

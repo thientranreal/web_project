@@ -88,7 +88,7 @@ span {
     position: absolute;
     right: 50px;
     display: flex;
-    transition: all 0.25s linear;
+    transition: all 0.5s linear;
 }
 .navbar-search-cart.middle {
     margin-right: 50%;
@@ -107,10 +107,24 @@ span {
     border-radius: 50px;
     font-size: 1rem;
     opacity: 0.6;
-    transition: width 0.25s linear;
+    transition: width 0.5s linear;
 }
 #search-animation.middle {
     width: 450px;
+}
+#search_result {
+    list-style-type: none;
+    position: absolute;
+    top: 39px;
+    left: 27px;
+    width: 90%;
+    background-color: var(--second-bgcolor);
+    border-radius: 10px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+}
+#search_result > li {
+    padding: 10px 20px;
+    cursor: pointer;
 }
 .search-wrapper {
     position: relative;

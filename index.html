@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/css/style.css">
     <link rel="stylesheet" href="./src/font/fontawesome-free-6.2.0-web/css/all.css">
+    <script src="./src/js/database.js" defer></script>
+    <script src="./src/js/jquery.js" defer></script>
+    <script src="./src/js/script.js" defer></script>
     <title>Document</title>
 </head>
 <body>
@@ -35,13 +38,15 @@
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="sentence-game" href="#" id="ghepcau">Ghép câu</a></li>
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game1" href="#">Game1</a></li>
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game2" href="#">Game2</a></li>
-                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="gioithieu" href="#">Giới thiệu</a></li>
                 </ul>
                 <div class="navbar-search-cart">
                     <div class="search-wrapper">
-                        <a href="#" class="circle remove-link"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        <input type="text" class="search-box" placeholder="Search">
+                        <a href="#" id="search_icon" class="circle remove-link"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <input type="text" id="search-animation" class="search-box" placeholder="Search">
                     </div>
+                    <ul id="search_result" style="display: none;">
+                        
+                    </ul>
                 </div>
                 <div class="menu-res">
                     <a href="#" class="remove-link circle-outer"><i class="fa-solid fa-magnifying-glass navbar-item-icon"></i></a>
@@ -87,7 +92,6 @@
                     <li><a href="#" class="remove-link sidebar-item" rel="sentence-game" id="ghepcaures">Ghép câu</a></li>
                     <li><a href="#" class="remove-link sidebar-item" rel="game1">Game1</a></li>
                     <li><a href="#" class="remove-link sidebar-item" rel="game2">Game2</a></li>
-                    <li><a href="#" class="remove-link sidebar-item" rel="gioithieu">Giới thiệu</a></li>
                 </ul>
                 <div class="logo">
                     <a href="#" class="navbar-link-img"><img src="./src/img/logo/T.jpeg" alt="my_logo" height="100%"></a>
@@ -108,13 +112,13 @@
         </div>
         
         <div id="body-container">
-        <!-- Trang chu -->
+<!-- Trang chu -->
             <div id="trangchu" class="panel active">
-
+                <!-- CHUA LAM -->
             </div>
-        <!-- End Trang chu --> 
+<!-- End Trang chu --> 
 
-        <!-- Guessing game -->
+<!-- Guessing game -->
             <div id="guessing-game" class="panel">
                 <div  class="question-img"><img src="" id="question-img" alt="NA" height="100%"></div>
                 <div class="option-list">
@@ -129,9 +133,9 @@
                     </div>
                 </div>
             </div>
-        <!-- End Guessing game -->
+<!-- End Guessing game -->
 
-        <!-- Sentences game -->
+<!-- Sentences game -->
             <div id="sentence-game" class="panel">
                 <div id="display-sentence">
                     <span id="sgquestion">Text</span>
@@ -152,34 +156,26 @@
                     </div>
                 </div>
             </div>
-        <!-- End Sentences game -->    
+<!-- End Sentences game -->    
             
-        <!-- Game 1 -->
+<!-- Game 1 -->
             <div id="game1" class="panel">
-
+                <!-- CHUA LAM -->
             </div>
-        <!-- End Game 1 --> 
+<!-- End Game 1 --> 
 
-        <!-- Game 2 -->
+<!-- Game 2 -->
             <div id="game2" class="panel">
-
+                <!-- CHUA LAM -->
             </div>
-        <!-- End Game 2 --> 
+<!-- End Game 2 --> 
 
-        <!-- Gioi thieu -->
-            <div id="gioithieu" class="panel">
-
-            </div>
-        <!-- End Gioi thieu --> 
         </div>
 
         <div id="footer">
-
+            <!-- CHUA LAM -->
         </div>
     </div>
 
 </body>
-    <script src="./src/js/database.js"></script>
-    <script src="./src/js/jquery.js"></script>
-    <script src="./src/js/script.js"></script>
 </html>
