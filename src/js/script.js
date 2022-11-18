@@ -285,33 +285,8 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 // End ghep cau game =========================================================
 
 // Search box ================================================================
-    //search animation
-    $('.navbar-search-cart').on('click', function(event) {
-        event.stopPropagation();
-        let $search_animation = $(this).find('#search-animation');
-        // if already in middle then return
-        if ($search_animation.is('.middle')) {
-            return;
-        }
-        $search_animation.css('opacity', '1').addClass('middle').closest('.navbar-search-cart').addClass('middle').prev().hide();
-        $search_animation.parent().next().slideDown(200);
-    });
-    
-    $('#wrapper').on('click', function() {
-        let $search_animation = $(this).find('#navbar #search-animation');
-        // if already not in middle then return
-        if (!$search_animation.is('.middle')) {
-            return;
-        }
-        $search_animation.removeClass('middle').closest('.navbar-search-cart').removeClass('middle').prev().delay(300).show(1);
-        $search_animation.parent().next().slideUp(200);
-    });
-
-    // search word
-    $('#search-animation').on('input', function() {
-        let current_word = $(this).val();
+    function showListWord(current_word, $search_result) {
         let result = "", exist = false;
-        let $search_result = $(this).parent().next();
         // if word is empty
         if (current_word == "") {
             $search_result.html(current_word);
@@ -341,9 +316,39 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         else {
             $search_result.html(`<li>${current_word}</li>`);
         }
+    }
+    //search animation
+    $('.navbar-search-cart').on('click', function(event) {
+        event.stopPropagation();
+        let $search_animation = $(this).find('#search-animation');
+        // if already in middle then return
+        if ($search_animation.is('.middle')) {
+            return;
+        }
+        $search_animation.css('opacity', '1').addClass('middle').closest('.navbar-search-cart').addClass('middle').prev().hide();
+        $search_animation.parent().next().slideDown(200);
+    });
+    
+    $('#wrapper').on('click', function() {
+        let $search_animation = $(this).find('#navbar #search-animation');
+        // if already not in middle then return
+        if (!$search_animation.is('.middle')) {
+            return;
+        }
+        $search_animation.removeClass('middle').closest('.navbar-search-cart').removeClass('middle').prev().delay(300).show(1);
+        $search_animation.parent().next().slideUp(200);
+    });
+
+    // search word
+    $('#search-animation').on('input', function(e) {
+        e.stopPropagation();
+        let current_word = $(this).val();
+        let $search_result = $(this).parent().next();
+        showListWord(current_word, $search_result);
     });
     // enter in search
     $('#search-animation').keyup(function(e) {
+        e.stopPropagation();
         if (e.keyCode == 13) {
             let current_word = $(this).val();
             let $search_result = $(this).parent().next();
@@ -361,7 +366,8 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         }
     });
     // add event click for search kinh lup
-    $('#search_icon').on('click', function() {
+    $('#search_icon').on('click', function(e) {
+        e.stopPropagation();
         let $search_animation = $(this).next();
         let current_word = $search_animation.val();
         let $search_result = $search_animation.parent().next();
@@ -379,4 +385,26 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 
     });
 // End search box =============================================================
+
+// Search for responsive
+    $('#search_res').on('click', function(e) {
+        e.stopPropagation();
+        if (!$(this).is('.show')) {
+            $(this).next().show(function() {
+                $(this).css('width', '');
+            });
+            // mark show and show search_result
+            $(this).addClass('show').siblings('#search_result_res').slideDown(200);
+        }
+        else {
+            $(this).next().css('width', '0').delay(500).fadeOut(200);
+            $(this).removeClass('show').siblings('#search_result_res').slideUp(200);
+        }
+    }).next().on('input', function(e) { // add input event for search input
+        e.stopPropagation();
+        let current_word = $(this).val();
+        let $search_result = $(this).siblings('#search_result_res');
+        showListWord(current_word, $search_result);
+    });
+// End search for responsive
 });

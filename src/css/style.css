@@ -112,7 +112,7 @@ span {
 #search-animation.middle {
     width: 450px;
 }
-#search_result {
+#search_result, #search_result_res {
     list-style-type: none;
     position: absolute;
     top: 39px;
@@ -122,12 +122,15 @@ span {
     border-radius: 10px;
     box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
 }
-#search_result > li {
+#search_result > li, #search_result_res > li {
     padding: 10px 20px;
     cursor: pointer;
 }
 .search-wrapper {
     position: relative;
+}
+#search_ani_res {
+    
 }
 .circle {
     position: absolute;
@@ -169,6 +172,7 @@ span {
 }
 .menu-res {
     display: none;
+    position: relative;
 }
 #modal-container {
     position: absolute;
