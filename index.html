@@ -36,13 +36,13 @@
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main active" rel="trangchu" href="#">Trang chủ</a></li>
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="guessing-game" href="#" id="trochoi">Trò chơi</a></li>
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="sentence-game" href="#" id="ghepcau">Ghép câu</a></li>
-                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game1" href="#">Game1</a></li>
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game2" href="#">Game2</a></li>
+                    <li class="navbar-item admin_feature" style="display: none;"><a class="navbar-item-link remove-link navbar-item-link-main" rel="add_word" href="#">Thêm từ</a></li>
                 </ul>
                 <div class="navbar-search-cart">
                     <div class="search-wrapper">
                         <a href="#" id="search_icon" class="circle remove-link"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        <input type="text" id="search-animation" class="search-box" placeholder="Search">
+                        <input type="search" id="search-animation" class="search-box" placeholder="Search">
                     </div>
                     <ul id="search_result" style="display: none;">
                         
@@ -50,7 +50,7 @@
                 </div>
                 <div class="menu-res">
                     <a href="#" id="search_res" class="remove-link circle-outer"><i class="fa-solid fa-magnifying-glass navbar-item-icon"></i></a>
-                    <input type="text" id="search_ani_res" class="search-box" style="width: 0; display: none;" placeholder="Search">
+                    <input type="search" id="search_ani_res" class="search-box" style="width: 0; display: none;" placeholder="Search">
                     <a href="#" id="menu-bars" class="remove-link circle-outer"><i class="fa-solid fa-bars navbar-item-icon"></i></a>
                     <ul id="search_result_res" style="display: none;">
                         
@@ -94,8 +94,8 @@
                     <li><a href="./index.html" class="remove-link sidebar-item active" rel="trangchu">Trang chủ</a></li>
                     <li><a href="#" class="remove-link sidebar-item" rel="guessing-game" id="trochoires">Trò chơi</a></li>
                     <li><a href="#" class="remove-link sidebar-item" rel="sentence-game" id="ghepcaures">Ghép câu</a></li>
-                    <li><a href="#" class="remove-link sidebar-item" rel="game1">Game1</a></li>
                     <li><a href="#" class="remove-link sidebar-item" rel="game2">Game2</a></li>
+                    <li class="admin_feature" style="display: none;"><a href="#" class="remove-link sidebar-item" rel="add_word">Thêm từ</a></li>
                 </ul>
                 <div class="logo">
                     <a href="#" class="navbar-link-img"><img src="./src/img/logo/T.jpeg" alt="my_logo" height="100%"></a>
@@ -162,17 +162,21 @@
             </div>
 <!-- End Sentences game -->    
             
-<!-- Game 1 -->
-            <div id="game1" class="panel">
-                <!-- CHUA LAM -->
-            </div>
-<!-- End Game 1 --> 
-
 <!-- Game 2 -->
             <div id="game2" class="panel">
                 <!-- CHUA LAM -->
             </div>
-<!-- End Game 2 --> 
+<!-- End Game 2 -->
+
+<!-- Add word -->
+            <div id="add_word" class="panel" style="display: none;">
+                <input type="text" class="search-box" placeholder="Từ vựng">
+                <input type="text" class="search-box" placeholder="Loại từ">
+                <input type="text" class="search-box" placeholder="Phiên âm">
+                <input type="text" class="search-box" placeholder="Nghĩa từ">
+                <a href="#" id="add_btn" class="remove-link join-us">Add</a>
+            </div>
+<!-- End add word --> 
 
         </div>
 

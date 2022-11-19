@@ -1,11 +1,17 @@
 $(document).ready(function() {
 // intialize=============================================================
     let randomNum;
+    let $gap = $('.gap');
     if (active != undefined) {
-        let $gap = $('.gap');
         $gap.children(':first').html(`Hello ${active}`);
         $gap.siblings('#navbar').find('#show-sign-in').children(':first').html('Log out');
         $gap.siblings('#modal-container').find('#show-sign-in-res').html('Log out');
+
+        // check if current user is admin
+        if (active === 'admin') {
+            $gap.siblings('#modal-container').find('.admin_feature').show();
+            $gap.siblings('#navbar').find('.admin_feature').show();
+        }
     }
 //======================================================================
 
@@ -169,6 +175,15 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                 $(this).closest('#modal-sign-in').siblings('.gap').children(':first').html(`Hello ${user.username}`);
                 $(this).closest('#modal-sign-in').siblings('#navbar').find('#show-sign-in').children().html('Log out');
                 $(this).closest('#modal-sign-in').siblings('#modal-container').find('#show-sign-in-res').html('Log out');
+                // if is admin then show admin_feature
+                if (user.username === 'admin') {
+                    $gap.siblings('#modal-container').find('.admin_feature').show();
+                    $gap.siblings('#navbar').find('.admin_feature').show();
+                }
+                else {
+                    $gap.siblings('#modal-container').find('.admin_feature').hide();
+                    $gap.siblings('#navbar').find('.admin_feature').hide();
+                }
                 localStorage.setItem('active', user.username);
                 close_signin();
                 return;
@@ -407,4 +422,31 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         showListWord(current_word, $search_result);
     });
 // End search for responsive
+
+// Add word
+    $('#add_btn').on('click', function() {
+        let $siblings = $(this).siblings();
+        let word;
+        // check input field have data or not
+        for (let item of $siblings) {
+            if ($(item).val() == '') {
+                alert("Thêm từ mới không thành công!.");
+                return;
+            }
+        }
+        // check whether a new word is exsisted or not
+        for (let item of vocabulary) {
+            if (item.word === $siblings.eq(0).val().toLowerCase()) {
+                alert("Từ này đã tồn tại.");
+                $siblings.val('');
+                return;
+            }
+        }
+        // add new word
+        word = new Word($siblings.eq(0).val().toLowerCase(), $siblings.eq(1).val().toLowerCase(), $siblings.eq(2).val().toLowerCase(), $siblings.eq(3).val().toLowerCase());
+        vocabulary.push(word);
+        localStorage.setItem('vocabulary', JSON.stringify(vocabulary));
+        $siblings.val('');
+    });
+// End add word
 });
