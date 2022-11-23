@@ -359,6 +359,10 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                     if (word.word == $(this).html()) {
                         result = `<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`;
                         $search_result.html(result);
+                        
+                        // play audio for selected word
+                        audio = new Audio(word.audio);
+                        audio.play();
                     }
                 }
             });
@@ -409,6 +413,10 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             for (let word of vocabulary) {
                 if (word.word == current_word) {
                     $search_result.html(`<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`);
+
+                    // play audio for selected word
+                    audio = new Audio(word.audio);
+                    audio.play();
                     return;
                 }
             }
@@ -428,6 +436,10 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         for (let word of vocabulary) {
             if (word.word == current_word) {
                 $search_result.html(`<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`);
+
+                // play audio for selected word
+                audio = new Audio(word.audio);
+                audio.play();
                 return;
             }
         }

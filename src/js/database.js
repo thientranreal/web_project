@@ -18,11 +18,12 @@ class User {
     }
 }
 class Word {
-    constructor(word, type, spelling, meaning) {
+    constructor(word, type, spelling, meaning, audio) {
         this.word = word;
         this.type = type;
         this.spelling = spelling;
         this.meaning = meaning;
+        this.audio = audio;
     }
 }
 
@@ -44,17 +45,17 @@ if (localStorage.vocabulary != undefined) {
 }
 else { // default data
     vocabulary = [
-        new Word("apple", "n", "'æpl", "trái táo"),
-        new Word("arm", "n", "ɑ:m", "cánh tay"),
-        new Word("axe", "n", "æks", "cái rùi"),
-        new Word("bus", "n", "bʌs", "xe buýt"),
-        new Word("big", "adj", "big", "to, lớn"),
-        new Word("back", "n", "bæk", "lưng"),
-        new Word("car", "n", "kɑ:", "xe hơi"),
-        new Word("cup", "n", "kʌp", "cái ly"),
-        new Word("chicken", "n", "ˈtʃɪkin", "con gà"),
-        new Word("run", "v", "rʌn", "chạy"),
-        new Word("human", "n", "'hju:mən", "con người"),
+        new Word("apple", "n", "'æpl", "trái táo","./src/audio/apple.mp3"),
+        new Word("arm", "n", "ɑ:m", "cánh tay","./src/audio/arm.mp3"),
+        new Word("axe", "n", "æks", "cái rùi","./src/audio/axe.mp3"),
+        new Word("bus", "n", "bʌs", "xe buýt","./src/audio/bus.mp3"),
+        new Word("big", "adj", "big", "to, lớn","./src/audio/big.mp3"),
+        new Word("back", "n", "bæk", "lưng","./src/audio/back.mp3"),
+        new Word("car", "n", "kɑ:", "xe hơi","./src/audio/car.mp3"),
+        new Word("cup", "n", "kʌp", "cái ly","./src/audio/cup.mp3"),
+        new Word("chicken", "n", "ˈtʃɪkin", "con gà","./src/audio/chicken.mp3"),
+        new Word("run", "v", "rʌn", "chạy","./src/audio/run.mp3"),
+        new Word("human", "n", "'hju:mən", "con người","./src/audio/human.mp3"),
     ];
     localStorage.setItem('vocabulary', JSON.stringify(vocabulary));
 }
@@ -66,12 +67,12 @@ if (localStorage.question_list != undefined) {
 }
 else { // default data
     question_list = [
-        new Question("./src/img/game_image/apple.jpg", "banana", "cabbage", "mango", "apple", "apple","./src/audio/apple.m4a"),
-        new Question("./src/img/game_image/bike.jpg", "car", "bike", "bridge", "house", "bike","./src/audio/bike.m4a"),
-        new Question("./src/img/game_image/dog.jpg", "dog", "cat", "human", "fly", "dog","./src/audio/dog.m4a"),
-        new Question("./src/img/game_image/laptop.jpg", "television", "cell phone", "laptop", "microwave", "laptop","./src/audio/laptop.m4a"),
-        new Question("./src/img/game_image/cat.jpg", "cat", "dog", "mango", "apple", "cat","./src/audio/cat.m4a"),
-        new Question("./src/img/game_image/bag.jpg", "house", "dog", "bag", "apple", "bag","./src/audio/bag.m4a")
+        new Question("./src/img/game_image/apple.jpg", "banana", "cabbage", "mango", "apple", "apple","./src/audio/apple.mp3"),
+        new Question("./src/img/game_image/bike.jpg", "car", "bike", "bridge", "house", "bike","./src/audio/bike.mp3"),
+        new Question("./src/img/game_image/dog.jpg", "dog", "cat", "human", "fly", "dog","./src/audio/dog.mp3"),
+        new Question("./src/img/game_image/laptop.jpg", "television", "cell phone", "laptop", "microwave", "laptop","./src/audio/laptop.mp3"),
+        new Question("./src/img/game_image/cat.jpg", "cat", "dog", "mango", "apple", "cat","./src/audio/cat.mp3"),
+        new Question("./src/img/game_image/bag.jpg", "house", "dog", "bag", "apple", "bag","./src/audio/bag.mp3")
     ];
     localStorage.setItem('question_list', JSON.stringify(question_list));
 }
