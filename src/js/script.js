@@ -82,21 +82,20 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         options.unbind('click');
         options.on('click', function() {
             // stop user from clicking it again
-            $(this).css('pointer-events', 'none');
+            options.css('pointer-events', 'none');
             // so sanh
             if ($(this).html() == question_list[randomNum].answer) {
                 $(this).addClass('correct');
-
-                //restart game after 1 second
-                setTimeout(function() {
-                    options.removeClass('correct').removeClass('wrong').css('pointer-events', '');
-                    randomNum = Math.floor(Math.random() * question_list.length);
-                    loadGuessingGame($question_img, options, randomNum, question_list);
-                }, 1000);
             }
             else {
                 $(this).addClass('wrong');
             }
+            //restart game after 1 second
+            setTimeout(function() {
+                options.removeClass('correct').removeClass('wrong').css('pointer-events', '');
+                randomNum = Math.floor(Math.random() * question_list.length);
+                loadGuessingGame($question_img, options, randomNum, question_list);
+            }, 1000);
         });
     }
     
@@ -425,10 +424,10 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 
 // Add word
     $('#add_btn').on('click', function() {
-        let $siblings = $(this).siblings();
+        let $input = $(this).parent().siblings();
         let word;
         // check input field have data or not
-        for (let item of $siblings) {
+        for (let item of $input) {
             if ($(item).val() == '') {
                 alert("Thêm từ mới không thành công!.");
                 return;
@@ -436,17 +435,47 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         }
         // check whether a new word is exsisted or not
         for (let item of vocabulary) {
-            if (item.word === $siblings.eq(0).val().toLowerCase()) {
+            if (item.word === $input.eq(0).val().toLowerCase()) {
                 alert("Từ này đã tồn tại.");
-                $siblings.val('');
+                $input.val('');
                 return;
             }
         }
         // add new word
-        word = new Word($siblings.eq(0).val().toLowerCase(), $siblings.eq(1).val().toLowerCase(), $siblings.eq(2).val().toLowerCase(), $siblings.eq(3).val().toLowerCase());
+        word = new Word($input.eq(0).val().toLowerCase(), $input.eq(1).val().toLowerCase(), $input.eq(2).val().toLowerCase(), $input.eq(3).val().toLowerCase());
         vocabulary.push(word);
         localStorage.setItem('vocabulary', JSON.stringify(vocabulary));
-        $siblings.val('');
+        $input.val('');
     });
 // End add word
+
+// Delete word
+    $('#delete_btn').on('click', function() {
+        // get word for deleting
+        let $input_word = $(this).parent().siblings().eq(0);
+        let word_delete = $input_word.val();
+
+        // find word want to delete and get it index
+        let delete_index;
+        vocabulary.find(function(word, index) {
+            if (word.word === word_delete.toLowerCase()) {
+                delete_index = index;
+                return true;
+            }
+        });
+
+        if (delete_index != undefined) {
+            alert(`Delete ${word_delete} successfully.`);
+            $input_word.val('');
+            // delete element in array
+            vocabulary.splice(delete_index, 1);
+            // update for local storage
+            localStorage.setItem('vocabulary', JSON.stringify(vocabulary));
+        }
+        else {
+            alert(`Can't find ${word_delete} in database.`);
+        }
+        $input_word.focus();
+    });
+// End delete word
 });

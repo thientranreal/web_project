@@ -41,27 +41,35 @@ var question_sentence = [
     new Question("Tôi thích đọc sách", "I", "reading", "love", "book", "I love reading book")
 ];
 
-// var vocabulary = [
-//     new Word("apple", "n", "'æpl", "trái táo"),
-//     new Word("arm", "n", "ɑ:m", "cánh tay"),
-//     new Word("axe", "n", "æks", "cái rùi"),
-//     new Word("bus", "n", "bʌs", "xe buýt"),
-//     new Word("big", "adj", "big", "to, lớn"),
-//     new Word("back", "n", "bæk", "lưng"),
-//     new Word("car", "n", "kɑ:", "xe hơi"),
-//     new Word("cup", "n", "kʌp", "cái ly"),
-//     new Word("chicken", "n", "ˈtʃɪkin", "con gà"),
-//     new Word("run", "v", "rʌn", "chạy"),
-//     new Word("human", "n", "'hju:mən", "con người"),
-// ];
-// localStorage.setItem('vocabulary', JSON.stringify(vocabulary));
 let users = [], vocabulary = [];
+
 // Fetch accounts array from web browser ====================================
 if (localStorage.accounts != undefined) {
     users = JSON.parse(localStorage.accounts);
 }
+else { // default data
+    users = [new User('', 'admin', 'flyingwhale2612', 'thientt2612@gmail.com')];
+    localStorage.setItem('accounts', JSON.stringify(users));
+}
+
 if (localStorage.vocabulary != undefined) {
     vocabulary = JSON.parse(localStorage.vocabulary);
+}
+else { // default data
+    vocabulary = [
+        new Word("apple", "n", "'æpl", "trái táo"),
+        new Word("arm", "n", "ɑ:m", "cánh tay"),
+        new Word("axe", "n", "æks", "cái rùi"),
+        new Word("bus", "n", "bʌs", "xe buýt"),
+        new Word("big", "adj", "big", "to, lớn"),
+        new Word("back", "n", "bæk", "lưng"),
+        new Word("car", "n", "kɑ:", "xe hơi"),
+        new Word("cup", "n", "kʌp", "cái ly"),
+        new Word("chicken", "n", "ˈtʃɪkin", "con gà"),
+        new Word("run", "v", "rʌn", "chạy"),
+        new Word("human", "n", "'hju:mən", "con người"),
+    ];
+    localStorage.setItem('vocabulary', JSON.stringify(vocabulary));
 }
 // ==========================================================================
 let active;
