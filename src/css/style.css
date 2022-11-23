@@ -345,6 +345,9 @@ span {
     justify-content: center;
     padding-top: 10px;
 }
+#question-img {
+    cursor: pointer;
+}
 .option-list{
     height: 60%;
     margin-top: 20px;

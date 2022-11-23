@@ -66,12 +66,12 @@ if (localStorage.question_list != undefined) {
 }
 else { // default data
     question_list = [
-        new Question("./src/img/game_image/apple.jpg", "banana", "cabbage", "mango", "apple", "apple",""),
-        new Question("./src/img/game_image/bike.jpg", "car", "bike", "bridge", "house", "bike",""),
-        new Question("./src/img/game_image/dog.jpg", "dog", "cat", "human", "fly", "dog",""),
-        new Question("./src/img/game_image/laptop.jpg", "television", "cell phone", "laptop", "microwave", "laptop",""),
-        new Question("./src/img/game_image/cat.jpg", "cat", "dog", "mango", "apple", "cat",""),
-        new Question("./src/img/game_image/bag.jpg", "house", "dog", "bag", "apple", "bag","")
+        new Question("./src/img/game_image/apple.jpg", "banana", "cabbage", "mango", "apple", "apple","./src/audio/apple.m4a"),
+        new Question("./src/img/game_image/bike.jpg", "car", "bike", "bridge", "house", "bike","./src/audio/bike.m4a"),
+        new Question("./src/img/game_image/dog.jpg", "dog", "cat", "human", "fly", "dog","./src/audio/dog.m4a"),
+        new Question("./src/img/game_image/laptop.jpg", "television", "cell phone", "laptop", "microwave", "laptop","./src/audio/laptop.m4a"),
+        new Question("./src/img/game_image/cat.jpg", "cat", "dog", "mango", "apple", "cat","./src/audio/cat.m4a"),
+        new Question("./src/img/game_image/bag.jpg", "house", "dog", "bag", "apple", "bag","./src/audio/bag.m4a")
     ];
     localStorage.setItem('question_list', JSON.stringify(question_list));
 }
@@ -83,11 +83,11 @@ if (localStorage.question_sentence != undefined) {
 }
 else { // default data
     question_sentence = [
-        new Question("Tôi đến từ Việt Nam", "from", "I", "Viet Nam", "am", "I am from Viet Nam", ""),
-        new Question("Tôi thích ăn kem", "I", "eating", "love", "ice cream", "I love eating ice cream", ""),
-        new Question("Tôi là ca sĩ", "am", "a", "I", "singer", "I am a singer", ""),
-        new Question("Tôi đang học ở SGU", "studying", "am", "at SGU", "I", "I am studying at SGU", ""),
-        new Question("Tôi thích đọc sách", "I", "reading", "love", "book", "I love reading book", "")
+        new Question("Tôi đến từ Việt Nam", "from", "I", "Viet Nam", "am", "I am from Viet Nam", "./src/audio/ImFromVN.m4a"),
+        new Question("Tôi thích ăn kem", "I", "eating", "love", "ice cream", "I love eating ice cream", "./src/audio/ILoveEatingIceCream.m4a"),
+        new Question("Tôi là ca sĩ", "am", "a", "I", "singer", "I am a singer", "./src/audio/ImASinger.m4a"),
+        new Question("Tôi đang học ở SGU", "studying", "am", "at SGU", "I", "I am studying at SGU", "./src/audio/ImStudyingAtSGU.m4a"),
+        new Question("Tôi thích đọc sách", "I", "reading", "love", "book", "I love reading book", "./src/audio/ILoveReadingBook.m4a")
     ];
     localStorage.setItem('question_sentence', JSON.stringify(question_sentence));
 }

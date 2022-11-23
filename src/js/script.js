@@ -1,6 +1,6 @@
 $(document).ready(function() {
 // intialize=============================================================
-    let randomNum;
+    let num_guess_game = -1, num_sentence_game = -1;
     let $gap = $('.gap');
     if (active != undefined) {
         $gap.children(':first').html(`Hello ${active}`);
@@ -11,6 +11,24 @@ $(document).ready(function() {
         if (active === 'admin') {
             $gap.siblings('#modal-container').find('.admin_feature').show();
             $gap.siblings('#navbar').find('.admin_feature').show();
+        }
+    }
+    // function for increment element in guessing game
+    function incrementGuessGame() {
+        if (num_guess_game === question_list.length - 1) {
+            num_guess_game = 0;
+        }
+        else {
+            ++num_guess_game;
+        }
+    }
+    // function for increment element in sentence game
+    function incrementSentenceGame() {
+        if (num_sentence_game === question_sentence.length - 1) {
+            num_sentence_game = 0;
+        }
+        else {
+            ++num_sentence_game;
         }
     }
 //======================================================================
@@ -70,13 +88,13 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
     
     function startGame() {
         // random number for random access to question_list
-        randomNum = Math.floor(Math.random() * question_list.length);
+        incrementGuessGame();
         let $question_img = $('#question-img');
         let options = $question_img.parent().siblings('.option-list').find('.option');
         
         // reset css for options
         options.removeClass('correct').removeClass('wrong').css('pointer-events', '');
-        loadGuessingGame($question_img, options, randomNum, question_list);
+        loadGuessingGame($question_img, options, num_guess_game, question_list);
 
         // add event listener for options
         options.unbind('click');
@@ -84,7 +102,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             // stop user from clicking it again
             options.css('pointer-events', 'none');
             // so sanh
-            if ($(this).html() == question_list[randomNum].answer) {
+            if ($(this).html() == question_list[num_guess_game].answer) {
                 $(this).addClass('correct');
             }
             else {
@@ -93,13 +111,21 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             //restart game after 1 second
             setTimeout(function() {
                 options.removeClass('correct').removeClass('wrong').css('pointer-events', '');
-                randomNum = Math.floor(Math.random() * question_list.length);
-                loadGuessingGame($question_img, options, randomNum, question_list);
+                incrementGuessGame();
+                loadGuessingGame($question_img, options, num_guess_game, question_list);
             }, 1000);
         });
     }
     
     $('#trochoi, #trochoires').on('click', startGame);
+    
+    let audio;
+    // play audio
+    $('#question-img').on('click', function() {
+        audio = new Audio(question_list[num_guess_game].audio);
+        audio.play();
+    });
+    // end play audio
 // End play game=================================================================
 
 // On / off sider bar====================================================
@@ -246,16 +272,21 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             options.eq(i).html(array[randomNum][op]);
         }
     }
+
     function startGhepCau() {
-        randomNum = Math.floor(Math.random() * question_sentence.length);
+        incrementSentenceGame();
         // fill data for game
         let sentence_game = $(this).attr('rel');
         let $toBodyContainer = $('#body-container');
         let $sgquestion = $toBodyContainer.find('#' + sentence_game + ' #sgquestion');
         let options = $toBodyContainer.find('#' + sentence_game + ' .option');
-        loadDataGhepCau($sgquestion, options, randomNum, question_sentence);
+        loadDataGhepCau($sgquestion, options, num_sentence_game, question_sentence);
         let sentence = "Your answer is: ", count = 0, $sganswer = $('#sganswer > span');
         $sganswer.html(sentence);
+
+        // play audio sentence
+        audio = new Audio(question_sentence[num_sentence_game].audio);
+        audio.play();
 
         options.unbind('click');
         options.on('click', function() {
@@ -272,7 +303,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                 options.css({
                     "opacity": ""
                 });
-                if (sentence.replace('Your answer is: ', '').trim() == question_sentence[randomNum].answer) {
+                if (sentence.replace('Your answer is: ', '').trim() == question_sentence[num_sentence_game].answer) {
                     options.addClass('correct');
                 }
                 else {
@@ -281,12 +312,17 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                 // end check answer
                 // start a new game after 1 second
                 setTimeout(function() {
-                    randomNum = Math.floor(Math.random() * question_sentence.length);
+                    incrementSentenceGame();
                     options.removeClass('correct').removeClass('wrong').css({
                         "pointer-events": "",
                         "opacity": ""
                     });
-                    loadDataGhepCau($sgquestion, options, randomNum, question_sentence);
+                    loadDataGhepCau($sgquestion, options, num_sentence_game, question_sentence);
+
+                    // play audio sentence
+                    audio = new Audio(question_sentence[num_sentence_game].audio);
+                    audio.play();
+
                     sentence = "Your answer is: ";
                     count = 0;
                     $sganswer.html(sentence);
