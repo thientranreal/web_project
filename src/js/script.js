@@ -31,6 +31,13 @@ $(document).ready(function() {
             ++num_sentence_game;
         }
     }
+    // function for playing audio
+    let audio;
+    function playAudio(path) {
+        audio = new Audio(path);
+        audio.play();
+    }
+
 //======================================================================
 
 // Navbar navigation =======================================================
@@ -119,11 +126,9 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
     
     $('#trochoi, #trochoires').on('click', startGame);
     
-    let audio;
     // play audio
     $('#question-img').on('click', function() {
-        audio = new Audio(question_list[num_guess_game].audio);
-        audio.play();
+        playAudio(question_list[num_guess_game].audio);
     });
     // end play audio
 // End play game=================================================================
@@ -285,8 +290,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         $sganswer.html(sentence);
 
         // play audio sentence
-        audio = new Audio(question_sentence[num_sentence_game].audio);
-        audio.play();
+        playAudio(question_sentence[num_sentence_game].audio)
 
         options.unbind('click');
         options.on('click', function() {
@@ -320,8 +324,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                     loadDataGhepCau($sgquestion, options, num_sentence_game, question_sentence);
 
                     // play audio sentence
-                    audio = new Audio(question_sentence[num_sentence_game].audio);
-                    audio.play();
+                    playAudio(question_sentence[num_sentence_game].audio)
 
                     sentence = "Your answer is: ";
                     count = 0;
@@ -337,6 +340,8 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 // Search box ================================================================
     function showListWord(current_word, $search_result) {
         let result = "", exist = false;
+        $search_result.children().unbind('click');
+
         // if word is empty
         if (current_word == "") {
             $search_result.html(current_word);
@@ -353,16 +358,19 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         }
         // add click event for word
         if (exist) {
-            $search_result.children().unbind('click');
             $search_result.children().on('click', function() {
                 for (let word of vocabulary) {
                     if (word.word == $(this).html()) {
+                        $search_result.children().unbind('click');
+
                         result = `<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`;
                         $search_result.html(result);
-                        
-                        // play audio for selected word
-                        audio = new Audio(word.audio);
-                        audio.play();
+
+                        // add click event for chosen word
+                        $search_result.children().on('click', function() {
+                            // play audio for selected word
+                            playAudio(word.audio)
+                        });
                     }
                 }
             });
@@ -400,6 +408,23 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         let $search_result = $(this).parent().next();
         showListWord(current_word, $search_result);
     });
+    
+    function showCorrectWord($search_result, current_word) {
+        for (let word of vocabulary) {
+            if (word.word == current_word) {
+
+                $search_result.children().unbind('click');
+                $search_result.html(`<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`);
+
+                // play audio for selected word
+                $search_result.children().on('click', function() {
+                    playAudio(word.audio);
+                });
+                return;
+            }
+        }
+        $search_result.html(`<li>${current_word} is not available</li>`);
+    }
     // enter in search
     $('#search-animation').keyup(function(e) {
         e.stopPropagation();
@@ -410,17 +435,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                 return;
             }
 
-            for (let word of vocabulary) {
-                if (word.word == current_word) {
-                    $search_result.html(`<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`);
-
-                    // play audio for selected word
-                    audio = new Audio(word.audio);
-                    audio.play();
-                    return;
-                }
-            }
-            $search_result.html(`<li>${current_word} is not available</li>`);
+            showCorrectWord($search_result, current_word);
         }
     });
     // add event click for search kinh lup
@@ -433,17 +448,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             return;
         }
 
-        for (let word of vocabulary) {
-            if (word.word == current_word) {
-                $search_result.html(`<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`);
-
-                // play audio for selected word
-                audio = new Audio(word.audio);
-                audio.play();
-                return;
-            }
-        }
-        $search_result.html(`<li>${current_word} is not available</li>`);
+        showCorrectWord($search_result, current_word);
 
     });
 // End search box =============================================================
