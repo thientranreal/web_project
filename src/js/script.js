@@ -477,30 +477,63 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 
 // Add word
     $('#add_btn').on('click', function() {
-        let $input = $(this).parent().siblings();
+        let $input = $(this).closest('#add_word').find('input');
         let word;
         // check input field have data or not
         for (let item of $input) {
-            if ($(item).val() == '') {
+            if ($(item).val() === '') {
+                if ($(item).is('input[type=file]')) {
+                    alert("Chưa thêm đường dẫn file audio!.");
+                    return;
+                }
                 alert("Thêm từ mới không thành công!.");
                 return;
+            }
+        }
+        function resetInput() {
+            for (let item of $input) {
+                if ($(item).is('input[readonly]')) {
+                    let default_path = './src/audio/';
+                    $(item).val(default_path);
+                }
+                else {
+                    $(item).val('');
+                }
             }
         }
         // check whether a new word is exsisted or not
         for (let item of vocabulary) {
             if (item.word === $input.eq(0).val().toLowerCase()) {
                 alert("Từ này đã tồn tại.");
-                $input.val('');
+                resetInput();
                 return;
             }
         }
         // add new word
-        word = new Word($input.eq(0).val().toLowerCase(), $input.eq(1).val().toLowerCase(), $input.eq(2).val().toLowerCase(), $input.eq(3).val().toLowerCase());
+        word = new Word($input.eq(0).val().toLowerCase(), $input.eq(1).val().toLowerCase(), $input.eq(2).val().toLowerCase(), $input.eq(3).val().toLowerCase(), $input.filter('input[readonly]').val());
         vocabulary.push(word);
         localStorage.setItem('vocabulary', JSON.stringify(vocabulary));
-        $input.val('');
+        alert(`Add ${$input.eq(0).val().toLowerCase()} successfully`);
+        // reset input field
+        resetInput();
     });
 // End add word
+
+// Get path audio
+    $('#path_audio').on('change', function() {
+        let default_path = './src/audio/';
+        // if path is empty
+        if ($(this).val() === '') {
+            $(this).next().val(default_path);
+        }
+        else {
+            let path = $(this).val().split('\\');
+            let filename = path[path.length - 1];
+            // get file name
+            $(this).next().val(default_path + filename);
+        }
+    });
+// End get path audio
 
 // Delete word
     $('#delete_btn').on('click', function() {

@@ -174,7 +174,10 @@
                 <input type="text" class="search-box" placeholder="Loại từ">
                 <input type="text" class="search-box" placeholder="Phiên âm">
                 <input type="text" class="search-box" placeholder="Nghĩa từ">
-                <input type="file" style="margin-top: 15px; margin-left: 133px;">
+                <div style="display: flex; align-items: center;">
+                    <input type="file" id="path_audio" style="width: 100px; margin: 15px 0;">
+                    <input type="text" class="search-box" value="./src/audio/" style="margin: 15px 0;" readonly>
+                </div>
                 <div style="display: flex;">
                     <a href="#" id="add_btn" class="remove-link join-us">Add</a>
                     <a href="#" id="delete_btn" class="remove-link join-us">Delete</a>
