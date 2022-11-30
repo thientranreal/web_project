@@ -1,12 +1,18 @@
 
 // intialize=============================================================
-let isAdmin = localStorage.getItem('active');
-if (isAdmin !== "admin") {
-    location.replace("./index.html");
-}
 let num_guess_game = -1, num_sentence_game = -1;
 let $gap = $('.gap');
+if (active != undefined) {
+    $gap.children(':first').html(`Hello ${active}`);
+    $gap.siblings('#navbar').find('#show-sign-in').children(':first').html('Log out');
+    $gap.siblings('#modal-container').find('#show-sign-in-res').html('Log out');
 
+    // check if current user is admin
+    if (active === 'admin') {
+        $gap.siblings('#modal-container').find('.admin_feature').show();
+        $gap.siblings('#navbar').find('.admin_feature').show();
+    }
+}
 // function for increment element in guessing game
 function incrementGuessGame() {
     if (num_guess_game === question_list.length - 1) {

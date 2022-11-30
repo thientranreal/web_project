@@ -34,7 +34,7 @@ if (localStorage.accounts != undefined) {
     users = JSON.parse(localStorage.accounts);
 }
 else { // default data
-    users = [new User('', 'admin', '12345678a', 'thientt2612@gmail.com')];
+    users = [new User('', 'admin', 'flyingwhale2612', 'thientt2612@gmail.com')];
     localStorage.setItem('accounts', JSON.stringify(users));
 }
 // end user =====================================================================

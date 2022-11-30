@@ -40,12 +40,6 @@ $(document).ready(function() {
 
 //======================================================================
 
-// Admin feature ======================================================
-    $('.admin_feature').on('click', function() {
-        window.location.replace('./admin.html');
-    });
-// End Admin feature ======================================================
-
 // Navbar navigation =======================================================
     $('#navbar .navbar-main li > a').on('click', function() {
         if ($(this).is('.active')) {
@@ -177,7 +171,6 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             $sign_in_res.html('Sign In');
             localStorage.removeItem('active');
             $modal_sign_in.siblings('.gap').children(':first').html('');
-            $modal_sign_in.parent().find('.admin_feature').hide();
         }
     }
 
