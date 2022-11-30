@@ -1,0 +1,76 @@
+.PSDivFlex {
+  display: flex;
+  gap: 1rem;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.PSDivFlex > div {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 25px;
+  box-shadow: 24px 24px 80px rgba(0, 0, 0, 0.1);
+}
+@media only screen and (max-width: 600px) {
+  .PSDivFlex {
+    flex-direction: column;
+  }
+}
+
+.PSCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.PSGantt {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.PSGantt > .PSGanttContent {
+  display: flex;
+  justify-content: center;
+}
+.PSGantt > .PSGanttContent > div {
+  padding: 1rem;
+  background-color: rgb(238, 244, 254);
+  border: 1px solid #0080ff;
+}
+.PSGantt > .PSGanttText {
+  display: flex;
+  width: 100vh;
+  justify-content: center;
+}
+.PSGantt > .PSGanttText > div {
+  padding: 0 1rem;
+  width: 42px;
+}
+
+.PSTable {
+  table-layout: fixed;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  border-collapse: collapse;
+  display: inline-block;
+  overflow: auto;
+  padding: 1rem;
+}
+.PSTable td {
+  text-overflow: ellipsis;
+  overflow: auto;
+  border: 1px solid rgb(225, 225, 225);
+  padding: 1rem;
+}
+.PSTable td[data-no-padding] {
+  padding: 0;
+}
+.PSTable td[data-full] {
+  padding: 1rem;
+}
+.PSTable thead th {
+  text-overflow: ellipsis;
+  padding: 1rem;
+  background-color: rgb(249, 249, 251);
+  border: 1px solid rgb(225, 225, 225);
+}
+
+/*# sourceMappingURL=Table.css.map */
