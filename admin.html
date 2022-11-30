@@ -1,0 +1,242 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin</title>
+    <script src="./src/js/database.js" defer></script>
+    <script src="./src/js/jquery.js" defer></script>
+    <script src="./src/js/adminScript.js" defer></script>
+    <script src="./src/js/admin.js" defer></script>
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/Table.css">
+    <link rel="stylesheet" href="./src/font/fontawesome-free-6.2.1-web/css/all.css">
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="navbar-small">
+            <a href="#" class="navbar-link-img">
+                <img src="./src/img/logo/T.jpeg" alt="my_logo" height="100%">
+            </a>
+            <ul class="navbar-nav">
+                <li class="navbar-item"><a class="navbar-link remove-link" href="#">Help</a></li>
+                <span>|</span>
+                <li id="a-join-us" class="navbar-item"><a class="navbar-link remove-link" href="#">Join Us</a></li>
+                <span>|</span>
+                <li id="show-sign-in" class="navbar-item"><a class="navbar-link remove-link" href="#">Sign In</a></li>
+            </ul>
+        </div>
+        <div class="navbar-main navbar-main-res">
+            <a href="#" class="navbar-link-img">
+                <img src="./src/img/logo/logo_english.jpg" alt="my_logo" height="100%">
+            </a>
+            <ul class="navbar-nav navbar-center navbar-nav-res">
+                <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main active" rel="trangchu" href="#">Trang chủ</a></li>
+                <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="guessing-game" href="#" id="trochoi">Trò chơi</a></li>
+                <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="sentence-game" href="#" id="ghepcau">Ghép câu</a></li>
+                <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game2" href="#">Game2</a></li>
+                <li class="navbar-item admin_feature" style="display: none;"><a class="navbar-item-link remove-link navbar-item-link-main" rel="add_word" href="#">Thêm từ</a></li>
+            </ul>
+            <div class="navbar-search-cart">
+                <div class="search-wrapper">
+                    <a href="#" id="search_icon" class="circle remove-link"><i class="fa-solid fa-magnifying-glass"></i></a>
+                    <input type="search" id="search-animation" class="search-box" placeholder="Search">
+                </div>
+                <ul id="search_result" style="display: none;">
+
+                </ul>
+            </div>
+            <div class="menu-res">
+                <a href="#" id="search_res" class="remove-link circle-outer"><i class="fa-solid fa-magnifying-glass navbar-item-icon"></i></a>
+                <input type="search" id="search_ani_res" class="search-box" style="width: 0; display: none;" placeholder="Search">
+                <a href="#" id="menu-bars" class="remove-link circle-outer"><i class="fa-solid fa-bars navbar-item-icon"></i></a>
+                <ul id="search_result_res" style="display: none;">
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End navbar -->
+
+    <!-- Modal sign in -->
+    <div id="modal-sign-in" style="display: none;">
+        <div id="modal-sign-in-wrapper">
+            <div id="login-desc">
+                <p id="login-header">Edit</p>
+                <p id="login-text">By doing this you agree to the responsibility of incorrectness to the item at hand.</p>
+            </div>
+            <form id="login-form" style="height: max(80vh, 60vh); overflow: auto">
+                <label id="indexId" style="display: none">1</label>
+                <label id="qType" style="display: none">vocabulary</label>
+                <label for="imgDir">Image Directory</label>
+                <input type="text" id="imgDir">
+                <label for="audioDir">Audio Directory</label>
+                <input type="text" id="audioDir">
+                <label for="op1">Option 1</label>
+                <input type="text" id="op1">
+                <label for="op2">Option 2</label>
+                <input type="text" id="op2">
+                <label for="op3">Option 3</label>
+                <input type="text" id="op3">
+                <label for="op4">Option 4</label>
+                <input type="text" id="op4">
+                <label for="ans">Answer</label>
+                <input type="text" id="ans">
+
+                <label for="qWord">Word</label>
+                <input type="text" id="qWord">
+                <label for="qAudio">Audio</label>
+                <input type="text" id="qAudio">
+                <label for="wType">Type</label>
+                <input type="text" id="wType">
+                <label for="qSpell">Spelling</label>
+                <input type="text" id="qSpell">
+                <label for="qMean">Meaning</label>
+                <input type="text" id="qMean">
+
+
+                <input type="button" value="Save">
+            </form>
+        </div>
+    </div>
+    <!-- End Modal sign in -->
+
+    <!-- Modal sidebar -->
+    <div id="modal-container" class="">
+        <div class="modal-sidebar">
+            <div class="close-btn">
+                <a href="#" id="menu-close" class="remove-link circle-outer" style="margin-left: auto;"><i class="fa-solid fa-xmark navbar-item-icon"></i></a>
+            </div>
+            <ul class="sidebar-content" style="list-style-type: none;">
+                <li><a href="./index.html" class="remove-link sidebar-item active" rel="trangchu">Trang chủ</a></li>
+                <li><a href="#" class="remove-link sidebar-item" rel="guessing-game" id="trochoires">Trò chơi</a></li>
+                <li><a href="#" class="remove-link sidebar-item" rel="sentence-game" id="ghepcaures">Ghép câu</a></li>
+                <li><a href="#" class="remove-link sidebar-item" rel="game2">Game2</a></li>
+                <li class="admin_feature" style="display: none;"><a href="#" class="remove-link sidebar-item" rel="add_word">Thêm từ</a></li>
+            </ul>
+            <div class="logo">
+                <a href="#" class="navbar-link-img"><img src="./src/img/logo/T.jpeg" alt="my_logo" height="100%"></a>
+            </div>
+            <div class="sidebar-signup">
+                <p style="color: #7e7b7b; padding-bottom: 30px;">Become a Member. <a href="#" style="text-decoration: none; color: black;">Learn more</a></p>
+                <div class="wrapper-sign-in">
+                    <a href="#" id="join-us-res" class="remove-link join-us">Join Us</a>
+                    <a href="#" id="show-sign-in-res" class="remove-link sign-in">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End modal sidebar -->
+
+    <div id="body-container">
+        <!-- Trang chu -->
+        <div id="trangchu" class="panel active">
+            <!-- CHUA LAM -->
+        </div>
+        <!-- End Trang chu -->
+
+        <!-- Guessing game -->
+        <div id="guessing-game" class="panel">
+            <div  class="question-img"></div>
+            <div class="option-list">
+<!--                Desktop-->
+                <div style="width: 100%">
+                    <table class="PSTable" id="GuessingTable" style="width: 100%">
+                        <thead style="max-width: 100%;">
+                        <tr>
+                            <th style="width: 10%">Img Dir</th>
+                            <th style="width: 10%">Audio Dir</th>
+                            <th style="width: 25%">Option 1</th>
+                            <th style="width: 25%">Option 2</th>
+                            <th style="width: 25%">Option 3</th>
+                            <th style="width: 25%">Option 4</th>
+                            <th style="width: 30%">Correct Answer</th>
+                            <th style="width: 20%">Edit</th>
+                            <th style="width: 20%">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody id="GuessingTableBody">
+
+                        </tbody>
+                        <tfoot id="GuessingTableFooter">
+                            <tr>
+                                <td colspan="9" style="background-color: #bcbcbc; cursor: pointer;"><center>Add Item</center></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End Guessing game -->
+
+        <!-- Sentences game -->
+        <div id="sentence-game" class="panel">
+            <div id="display-sentence" style="margin-top: 6rem;">
+                <span id="sgquestion">Sentences</span>
+                <div id="sganswer">
+                    <span></span>
+                    <div id="underline-sganswer"></div>
+                </div>
+            </div>
+            <div class="option-list">
+                <div style="width: 100%">
+                    <table class="PSTable" id="SentenceTable" style="width: 100%">
+                        <thead style="max-width: 100%;">
+                        <tr>
+                            <th style="width: 10%">Audio Dir</th>
+                            <th style="width: 10%">Tiếng Việt</th>
+                            <th style="width: 15%">Option 1</th>
+                            <th style="width: 15%">Option 2</th>
+                            <th style="width: 15%">Option 3</th>
+                            <th style="width: 15%">Option 4</th>
+                            <th style="width: 30%">Correct Answer</th>
+                            <th style="width: 20%">Edit</th>
+                            <th style="width: 20%">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody id="SentenceTableBody">
+
+                        </tbody>
+                        <tfoot id="SentenceTableFooter">
+                            <tr>
+                                <td colspan="9" style="background-color: #bcbcbc; cursor: pointer;"><center>Add Item</center></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End Sentences game -->
+
+        <!-- Game 2 -->
+        <div id="game2" class="panel">
+            <!-- CHUA LAM -->
+        </div>
+        <!-- End Game 2 -->
+
+        <!-- Add word -->
+        <div id="add_word" class="panel" style="display: none;">
+            <input type="text" class="search-box" placeholder="Từ vựng">
+            <input type="text" class="search-box" placeholder="Loại từ">
+            <input type="text" class="search-box" placeholder="Phiên âm">
+            <input type="text" class="search-box" placeholder="Nghĩa từ">
+            <div style="display: flex; align-items: center;">
+                <input type="file" id="path_audio" style="width: 100px; margin: 15px 0;">
+                <input type="text" class="search-box" value="./src/audio/" style="margin: 15px 0;" readonly>
+            </div>
+            <div style="display: flex;">
+                <a href="#" id="add_btn" class="remove-link join-us">Add</a>
+                <a href="#" id="delete_btn" class="remove-link join-us">Delete</a>
+            </div>
+        </div>
+        <!-- End add word -->
+
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+.PSDivFlex {
+  display: flex;
+  gap: 1rem;
+  background-color: rgba(255, 255,255, 0.3);
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 25px;
+    box-shadow: 24px 24px 80px rgba(0,0,0,0.1);
+  }
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.PSCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.PSGantt {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  &>.PSGanttContent {
+    display: flex;
+    justify-content: center;
+    &>div {
+      padding: 1rem;
+      //margin: -1px;
+      //display: flex;
+      //height: 40px;
+      //width: 35px;
+      //justify-content: center;
+      //align-items: center;
+      background-color: rgb(238, 244, 254);
+      border: 1px solid #0080ff;;
+    }
+  }
+
+  &>.PSGanttText {
+    display: flex;
+    width: 100vh;
+    justify-content: center;
+    &>div {
+      padding: 0 1rem;
+      width: 42px;
+    }
+  }
+}
+
+
+.PSTable {
+  table-layout: fixed;
+
+  box-sizing: border-box;
+  border-radius: 1rem;
+  border-collapse: collapse;
+  display: inline-block;
+
+  overflow: auto;
+  padding: 1rem;
+
+  td {
+    text-overflow: ellipsis;
+    overflow: auto;
+    border: 1px solid rgb(225, 225, 225);
+    padding: 1rem;
+
+    &[data-no-padding] {
+      padding: 0;
+    }
+
+    &[data-full] {
+      padding: 1rem;
+    }
+  }
+  thead {
+    th {
+      text-overflow: ellipsis;
+      padding: 1rem;
+      //color: rgb(109, 113, 135);
+      background-color: rgb(249, 249, 251);
+      border: 1px solid rgb(225, 225, 225);
+    }
+  }
+}
