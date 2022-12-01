@@ -384,9 +384,7 @@ input {
 .panel {
     display: none;
 }
-.panel.active {
-    display: block;
-}
+
 #guessing-game {
     background-color: var(--second-bgcolor);
     height: 360px;
@@ -542,7 +540,7 @@ input {
     margin-top: 10px;
     padding-top: 15px;
     text-align: center;
-    color: #d1e4f5;
+    color: var(--background-color);
 }
 
 .container-lucCute {
@@ -566,17 +564,18 @@ input {
 }
 
 .font {
-    color: #aabbda;
+    color: var(--background-color);
     text-decoration: none;
     margin-top: 5px;
     display: block;
+    cursor: pointer;
 }
 
 .title {
     font-size: 22px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 550;
-    color: #d1e4f5;
+    color: var(--background-color);
 
 
 }
