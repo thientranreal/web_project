@@ -1,9 +1,9 @@
 :root {
-    --background-color: #5CDB95;
-    --second-bgcolor: #379683;
+    --background-color: #f5f5f5;
+    --second-bgcolor: white;
     --first-nav-height: 35px;
     --second-nav-height: 60px;
-    --font-color: #05386B;
+    --font-color: black;
 }
 
 * {

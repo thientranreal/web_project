@@ -1,8 +1,8 @@
-$(document).ready(function() {
-// intialize=============================================================
+$(document).ready(function () {
+    // intialize=============================================================
     let num_guess_game = -1, num_sentence_game = -1;
     let $gap = $('.gap');
-    if (active != undefined) {
+    if (localStorage.getItem('active') != undefined) {
         $gap.children(':first').html(`Hello ${active}`);
         $gap.siblings('#navbar').find('#show-sign-in').children(':first').html('Log out');
         $gap.siblings('#modal-container').find('#show-sign-in-res').html('Log out');
@@ -38,27 +38,27 @@ $(document).ready(function() {
         audio.play();
     }
 
-//======================================================================
+    //======================================================================
 
-// Banner Trang chu ====================================================
-var banner_counter = 1;
+    // Banner Trang chu ====================================================
+    var banner_counter = 1;
     setInterval(function () {
-      document.getElementById("radio" + banner_counter).checked = true;
-      banner_counter++;
-      if (banner_counter > 4) {
-        banner_counter = 1;
-      }
+        document.getElementById("radio" + banner_counter).checked = true;
+        banner_counter++;
+        if (banner_counter > 4) {
+            banner_counter = 1;
+        }
     }, 4000);
-// End Banner Trang chu ===============================================
+    // End Banner Trang chu ===============================================
 
-// Move to admin site=====================================================
-    $('.admin_feature').on('click', function() {
+    // Move to admin site=====================================================
+    $('.admin_feature').on('click', function () {
         window.location.replace('./admin.html');
     });
-// End move to admin site ================================================
+    // End move to admin site ================================================
 
-// Navbar navigation =======================================================
-    $('#navbar .navbar-main li > a').on('click', function() {
+    // Navbar navigation =======================================================
+    $('#navbar .navbar-main li > a').on('click', function () {
         if ($(this).is('.active')) {
             return;
         }
@@ -68,39 +68,91 @@ var banner_counter = 1;
 
         let $panelToShow = $(this).attr('rel');
         let $toBodyContainer = $(this).closest('#navbar').siblings('#body-container');
-        $toBodyContainer.find('.panel.active').hide(300, function() {
+        $toBodyContainer.find('.panel.active').hide(300, function () {
             $(this).removeClass('active');
 
-            $toBodyContainer.find('#'+$panelToShow).show(300, function() {
+            $toBodyContainer.find('#' + $panelToShow).show(300, function () {
                 $(this).addClass('active');
             });
         });
     })
-// End navbar navigation =================================================
+    // End navbar navigation =================================================
 
-// Navbar navigation res =======================================================
-$('#modal-container .sidebar-content li > a').on('click', function() {
-    close_menu();
-    if ($(this).is('.active')) {
-        return;
-    }
-    let $sidebar_content = $(this).closest('.sidebar-content');
-    $sidebar_content.find('a.active').removeClass('active');
-    $(this).addClass('active');
+    // Navbar navigation res =======================================================
+    $('#modal-container .sidebar-content li > a').on('click', function () {
+        close_menu();
+        if ($(this).is('.active')) {
+            return;
+        }
+        let $sidebar_content = $(this).closest('.sidebar-content');
+        $sidebar_content.find('a.active').removeClass('active');
+        $(this).addClass('active');
 
-    let $panelToShow = $(this).attr('rel');
-    let $toBodyContainer = $(this).closest('#modal-container').siblings('#body-container');
-    $toBodyContainer.find('.panel.active').hide(300, function() {
-        $(this).removeClass('active');
+        let $panelToShow = $(this).attr('rel');
+        let $toBodyContainer = $(this).closest('#modal-container').siblings('#body-container');
+        $toBodyContainer.find('.panel.active').hide(300, function () {
+            $(this).removeClass('active');
 
-        $toBodyContainer.find('#'+$panelToShow).show(300, function() {
-            $(this).addClass('active');
+            $toBodyContainer.find('#' + $panelToShow).show(300, function () {
+                $(this).addClass('active');
+            });
         });
-    });
-})
-// End navbar navigation res =================================================
+    })
+    // End navbar navigation res =================================================
 
-// Play game===============================================================
+    // Play game===============================================================
+    function setDetaisUser(username, itemToEdit, optional = "") {
+        if (username === null) {
+            return;
+        }
+        let details = localStorage.getItem('detailUser') ? JSON.parse(localStorage.getItem('detailUser')) : []
+        let user = details.find(x => x.username === username);
+        if (user === undefined) {
+            user = {
+                game1C : 0,
+                game1W : 0,
+                game2C : 0,
+                game2W : 0,
+                game3C : 0,
+                game3W : 0,
+                username : username,
+                wordHistory:[]
+            };
+
+            details.push(user);
+        }
+        switch (itemToEdit) {
+            case 'game1C':
+                user.game1C++;
+                break;
+            case 'game1W':
+                user.game1W++;
+                break;
+            case 'game2C':
+                user.game2C++;
+                break;
+            case 'game2W':
+                user.game2W++;
+                break;
+            case 'wordHistory':
+                const val = user.wordHistory.find(x=>x === optional);
+                if (val) {
+                    let i = user.wordHistory.indexOf(val);
+                    user.wordHistory.splice(i, 1);
+                }
+                if (user.wordHistory.length >= 4) {
+                    user.wordHistory.shift();
+                }
+                user.wordHistory.push(optional);
+                break;
+            default:
+                break;
+        }
+
+        localStorage.setItem('detailUser', JSON.stringify(details));
+    }
+
+
     function loadGuessingGame(pointer, options, randomNum, array) {
         pointer.attr('src', array[randomNum].img_url);
         let op;
@@ -109,66 +161,71 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             options.eq(i).html(array[randomNum][op]);
         }
     }
-    
+
     function startGame() {
         // random number for random access to question_list
         incrementGuessGame();
         let $question_img = $('#question-img');
         let options = $question_img.parent().siblings('.option-list').find('.option');
-        
+
         // reset css for options
         options.removeClass('correct').removeClass('wrong').css('pointer-events', '');
         loadGuessingGame($question_img, options, num_guess_game, question_list);
 
         // add event listener for options
         options.unbind('click');
-        options.on('click', function() {
+        options.on('click', function () {
             // stop user from clicking it again
             options.css('pointer-events', 'none');
             // so sanh
             if ($(this).html() == question_list[num_guess_game].answer) {
                 $(this).addClass('correct');
+
+                setDetaisUser(localStorage.getItem('active'), 'game1C')
             }
             else {
                 $(this).addClass('wrong');
+
+                setDetaisUser(localStorage.getItem('active'), 'game1W');
+
             }
             //restart game after 1 second
-            setTimeout(function() {
+            setTimeout(function () {
                 options.removeClass('correct').removeClass('wrong').css('pointer-events', '');
                 incrementGuessGame();
                 loadGuessingGame($question_img, options, num_guess_game, question_list);
             }, 1000);
         });
     }
-    
+
     $('#trochoi, #trochoires').on('click', startGame);
-    
+
     // play audio
-    $('#question-img').on('click', function() {
+    $('#question-img').on('click', function () {
         playAudio(question_list[num_guess_game].audio);
     });
     // end play audio
-// End play game=================================================================
+    // End play game=================================================================
 
-// On / off sider bar====================================================
-    let close_menu = function() {
-        $('.modal-sidebar').animate({ right: '-310px' }, function() {
+    // On / off sider bar====================================================
+    let close_menu = function () {
+        $('.modal-sidebar').animate({ right: '-310px' }, function () {
             $(this).parent().hide();
         });
     }
-    let show_menu = function() {
-        $('#modal-container').show(1, function() {
+    let show_menu = function () {
+        $('#modal-container').show(1, function () {
             $(this).find('.modal-sidebar').animate({ right: '0px' });
         });
     }
 
     $('#menu-close').on('click', close_menu);
     $('#menu-bars').on('click', show_menu);
-// End on / off sider bar=================================================
+    // End on / off sider bar=================================================
 
-// On / off sign in========================================================
+    // On / off sign in========================================================
 
-    let close_signin = function() {
+    let close_signin = function () {
         let $modal_sign_in = $('#modal-sign-in');
         $modal_sign_in.slideUp();
         //reset form
@@ -194,31 +251,31 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
 
     // add event listener
     $('#show-sign-in').on('click', signInLogOut);
-    $('#show-sign-in-res').on('click', function() {
+    $('#show-sign-in-res').on('click', function () {
         close_menu();
         signInLogOut();
     });
 
-    $('#modal-sign-in').on('click', function() {
+    $('#modal-sign-in').on('click', function () {
         $(this).slideUp();
         $(this).find('#email, #pass').val('').css('border-bottom', 'solid 1px #f5f5f5');
     });
 
-    $('#modal-sign-in-wrapper').on('click', function(event) {
+    $('#modal-sign-in-wrapper').on('click', function (event) {
         event.stopPropagation();
     });
-    $('#login-form > span, #a-join-us, #join-us-res').on('click', function() {
+    $('#login-form > span, #a-join-us, #join-us-res').on('click', function () {
         window.location.replace('./join_us.html');
     });
-// End on / off sign in========================================================
+    // End on / off sign in========================================================
 
-// Validate sign in ==========================================================
-    $('#modal-sign-in form input:last-child').on('click', function() {
+    // Validate sign in ==========================================================
+    $('#modal-sign-in form input:last-child').on('click', function () {
         let pass = $('#pass');
         let userinput = $('#email');
 
         for (let user of users) {
-            if ( (user.username == userinput.val() || user.email == userinput.val()) && user.password == pass.val()) {
+            if ((user.username == userinput.val() || user.email == userinput.val()) && user.password == pass.val()) {
                 // say Hello user and change sign in to logout
                 $(this).closest('#modal-sign-in').siblings('.gap').children(':first').html(`Hello ${user.username}`);
                 $(this).closest('#modal-sign-in').siblings('#navbar').find('#show-sign-in').children().html('Log out');
@@ -233,6 +290,9 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                     $gap.siblings('#navbar').find('.admin_feature').hide();
                 }
                 localStorage.setItem('active', user.username);
+
+                // TK
+                setDetaisUser(user.username, null, null);
                 close_signin();
                 return;
             }
@@ -242,7 +302,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         userinput.focus();
     });
 
-    let inputChange = function() {
+    let inputChange = function () {
         if ($(this).val() == '') {
             $(this).css('border-bottom', 'solid 1px #f5f5f5');
         }
@@ -251,10 +311,10 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         }
     }
     $('#pass, #email').on('input', inputChange);
-// End validate sign in ======================================================
+    // End validate sign in ======================================================
 
-// Show eye for password input ===============================================
-    $('#pass').on('input', function() {
+    // Show eye for password input ===============================================
+    $('#pass').on('input', function () {
         let css_selector = '#pass+.eye';
         if ($(this).val() == '') {
             $(css_selector).hide();
@@ -264,25 +324,25 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         }
     });
 
-    $('.eye').on('click', function() {
+    $('.eye').on('click', function () {
         let eye_slash = '<i class="fa-regular fa-eye-slash"></i>';
         let eye = '<i class="fa-regular fa-eye"></i>';
         // user wants to see password
         if ($(this).html() == eye) {
             $(this).html(eye_slash);
             // eye for password
-            $('#pass').attr('type','text');
+            $('#pass').attr('type', 'text');
         }
         // user does not want to see password
-        else if($(this).html() == eye_slash) {
+        else if ($(this).html() == eye_slash) {
             $(this).html(eye);
             // eye for password
-            $('#pass').attr('type','password');
+            $('#pass').attr('type', 'password');
         }
     });
-// End show eye for password input ===========================================
+    // End show eye for password input ===========================================
 
-// Ghep cau game =============================================================
+    // Ghep cau game =============================================================
     function loadDataGhepCau(pointer, options, randomNum, array) {
         pointer.html(array[randomNum].img_url);
         let op;
@@ -311,7 +371,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         playAudio(question_sentence[num_sentence_game].audio)
 
         options.unbind('click');
-        options.on('click', function() {
+        options.on('click', function () {
             $(this).css({
                 "pointer-events": "none",
                 "opacity": "0.5"
@@ -319,7 +379,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             sentence += $(this).html() + ' ';
             count++;
             $sganswer.html(sentence);
-            
+
             if (count == 4) {
                 // check answer
                 options.css({
@@ -327,13 +387,15 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                 });
                 if (sentence.replace('Your answer is: ', '').trim() == question_sentence[num_sentence_game].answer) {
                     options.addClass('correct');
+                    setDetaisUser(localStorage.getItem('active'), 'game2C');
                 }
                 else {
                     options.addClass('wrong');
+                    setDetaisUser(localStorage.getItem('active'), 'game2W');
                 }
                 // end check answer
                 // start a new game after 1 second
-                setTimeout(function() {
+                setTimeout(function () {
                     incrementSentenceGame();
                     options.removeClass('correct').removeClass('wrong').css({
                         "pointer-events": "",
@@ -353,9 +415,9 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
     }
 
     $('#ghepcau, #ghepcaures').on('click', startGhepCau);
-// End ghep cau game =========================================================
+    // End ghep cau game =========================================================
 
-// Search box ================================================================
+    // Search box ================================================================
     function showListWord(current_word, $search_result) {
         let result = "", exist = false;
         $search_result.children().unbind('click');
@@ -376,7 +438,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         }
         // add click event for word
         if (exist) {
-            $search_result.children().on('click', function() {
+            $search_result.children().on('click', function () {
                 for (let word of vocabulary) {
                     if (word.word == $(this).html()) {
                         $search_result.children().unbind('click');
@@ -385,7 +447,9 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                         $search_result.html(result);
 
                         // add click event for chosen word
-                        $search_result.children().on('click', function() {
+                        $search_result.children().on('click', function () {
+                            setDetaisUser(localStorage.getItem('active'), 'wordHistory', word.word);
+
                             // play audio for selected word
                             playAudio(word.audio)
                         });
@@ -398,7 +462,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         }
     }
     //search animation
-    $('.navbar-search-cart').on('click', function(event) {
+    $('.navbar-search-cart').on('click', function (event) {
         event.stopPropagation();
         let $search_animation = $(this).find('#search-animation');
         // if already in middle then return
@@ -408,8 +472,8 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         $search_animation.css('opacity', '1').addClass('middle').closest('.navbar-search-cart').addClass('middle').prev().hide();
         $search_animation.parent().next().slideDown(200);
     });
-    
-    $('#wrapper').on('click', function() {
+
+    $('#wrapper').on('click', function () {
         let $search_animation = $(this).find('#navbar #search-animation');
         // if already not in middle then return
         if (!$search_animation.is('.middle')) {
@@ -420,13 +484,13 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
     });
 
     // search word
-    $('#search-animation').on('input', function(e) {
+    $('#search-animation').on('input', function (e) {
         e.stopPropagation();
         let current_word = $(this).val();
         let $search_result = $(this).parent().next();
         showListWord(current_word, $search_result);
     });
-    
+
     function showCorrectWord($search_result, current_word) {
         for (let word of vocabulary) {
             if (word.word == current_word) {
@@ -435,7 +499,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
                 $search_result.html(`<li>${word.word} (${word.type}) /${word.spelling}/ : ${word.meaning}</li>`);
 
                 // play audio for selected word
-                $search_result.children().on('click', function() {
+                $search_result.children().on('click', function () {
                     playAudio(word.audio);
                 });
                 return;
@@ -444,7 +508,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         $search_result.html(`<li>${current_word} is not available</li>`);
     }
     // enter in search
-    $('#search-animation').keyup(function(e) {
+    $('#search-animation').keyup(function (e) {
         e.stopPropagation();
         if (e.keyCode == 13) {
             let current_word = $(this).val();
@@ -457,7 +521,7 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         }
     });
     // add event click for search kinh lup
-    $('#search_icon').on('click', function(e) {
+    $('#search_icon').on('click', function (e) {
         e.stopPropagation();
         let $search_animation = $(this).next();
         let current_word = $search_animation.val();
@@ -469,13 +533,13 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
         showCorrectWord($search_result, current_word);
 
     });
-// End search box =============================================================
+    // End search box =============================================================
 
-// Search for responsive
-    $('#search_res').on('click', function(e) {
+    // Search for responsive
+    $('#search_res').on('click', function (e) {
         e.stopPropagation();
         if (!$(this).is('.show')) {
-            $(this).next().show(function() {
+            $(this).next().show(function () {
                 $(this).css('width', '');
             });
             // mark show and show search_result
@@ -485,12 +549,11 @@ $('#modal-container .sidebar-content li > a').on('click', function() {
             $(this).next().css('width', '0').delay(500).fadeOut(200);
             $(this).removeClass('show').siblings('#search_result_res').slideUp(200);
         }
-    }).next().on('input', function(e) { // add input event for search input
+    }).next().on('input', function (e) { // add input event for search input
         e.stopPropagation();
         let current_word = $(this).val();
         let $search_result = $(this).siblings('#search_result_res');
         showListWord(current_word, $search_result);
     });
-// End search for responsive
-
+    // End search for responsive
 });

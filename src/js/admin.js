@@ -4,8 +4,7 @@ console.log("a");
 // @ts-ignore
 (_a = document.getElementById('indexId')) === null || _a === void 0 ? void 0 : _a.innerText = "2";
 const updateEdit = (questionToEdit) => {
-    const { indexId, qType, imgDir, op1, op2, op3, op4, answer, qAudio, qMean, qSpell, qWord } = questionToEdit;
-    console.log("ij");
+    const { indexId, qType, imgDir, op1, op2, op3, op4, answer, qAudio, wType, qMean, qEmail, qSpell, qWord, qG1C, qG1W, qG2C, qG2W, qG3C, qG3W, qPass, qUser } = questionToEdit;
     if (indexId === undefined) {
         return;
     }
@@ -59,18 +58,94 @@ const updateEdit = (questionToEdit) => {
     }
     // @ts-ignore
     ansElem.value = answer;
-    const audioElem = document.getElementById('qAudio');
-    if (audioElem === null) {
+    const qWordElem = document.getElementById('qWord');
+    if (qWordElem === null) {
         return;
     }
     // @ts-ignore
-    audioElem.value = qAudio;
+    qWordElem.value = qWord;
+    const qAudioElem = document.getElementById('qAudio');
+    if (qAudioElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qAudioElem.value = qAudio;
+    const wTypeElem = document.getElementById('wType');
+    if (wTypeElem === null) {
+        return;
+    }
+    // @ts-ignore
+    wTypeElem.value = wType;
+    const qSpellElem = document.getElementById('qSpell');
+    if (qSpellElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qSpellElem.value = qSpell;
+    const qMeanElem = document.getElementById('qMean');
+    if (qMeanElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qMeanElem.value = qMean;
+    const qUserElem = document.getElementById('qUser');
+    if (qUserElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qUserElem.value = qUser;
+    const qPassElem = document.getElementById('qPass');
+    if (qPassElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qPassElem.value = qPass;
+    const qG1CElem = document.getElementById('qG1C');
+    if (qG1CElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qG1CElem.value = qG1C;
+    const qG1WElem = document.getElementById('qG1W');
+    if (qG1WElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qG1WElem.value = qG1W;
+    const qG2CElem = document.getElementById('qG2C');
+    if (qG2CElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qG2CElem.value = qG2C;
+    const qG2WElem = document.getElementById('qG2W');
+    if (qG2WElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qG2WElem.value = qG2W;
+    const qG3CElem = document.getElementById('qG3C');
+    if (qG3CElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qG3CElem.value = qG3C;
+    const qG3WElem = document.getElementById('qG3W');
+    if (qG3WElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qG3WElem.value = qG3W;
+    const qEmailElem = document.getElementById('qEmail');
+    if (qEmailElem === null) {
+        return;
+    }
+    // @ts-ignore
+    qEmailElem.value = qEmail;
     //@ts-ignore
     signInLogOutFunc();
 };
 const deleteItem = (questionToDelete) => {
-    console.log("canssn");
-    console.log(questionToDelete);
     const { indexId, qType } = questionToDelete;
     if (qType === 'question_list') {
         // @ts-ignore
@@ -79,12 +154,19 @@ const deleteItem = (questionToDelete) => {
         localStorage.setItem('question_list', JSON.stringify(item));
         updateGuessingTable();
     }
-    if (qType === 'question_sentence') {
+    else if (qType === 'question_sentence') {
         // @ts-ignore
         const item = JSON.parse(localStorage.getItem('question_sentence'));
         item.splice(indexId, 1);
         localStorage.setItem('question_sentence', JSON.stringify(item));
         updateSentenceTable();
+    }
+    else if (qType === 'vocabulary') {
+        // @ts-ignore
+        const item = JSON.parse(localStorage.getItem('vocabulary'));
+        item.splice(indexId, 1);
+        localStorage.setItem('vocabulary', JSON.stringify(item));
+        updateVocabTable();
     }
 };
 const updateGuessingTable = () => {
@@ -206,9 +288,157 @@ const updateSentenceTable = () => {
         (_b = document.getElementById(`slx${i}`)) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => deleteItem(questionToDelete));
     }
 };
+const updateVocabTable = () => {
+    var _a, _b;
+    let questionItem = localStorage.getItem("vocabulary");
+    if (questionItem === null) {
+        console.log("Ko tim thay vocabulary");
+        return;
+    }
+    let vocabList = JSON.parse(questionItem);
+    let vocabTable = document.getElementById("VocabTableBody");
+    if (vocabTable === null) {
+        return;
+    }
+    vocabTable.innerText = "";
+    for (let i = 0; i < vocabList.length; i++) {
+        const vocabListElement = vocabList[i];
+        const audioChunk = vocabListElement.audio.split("/");
+        const audioName = audioChunk[audioChunk.length - 1];
+        vocabTable.innerHTML += `
+            <tr>
+                <td>${audioName}</td>
+                <td>${vocabListElement.meaning}</td>
+                <td>${vocabListElement.spelling}</td>
+                <td>${vocabListElement.type}</td>
+                <td>${vocabListElement.word}</td>
+                <td id="v${i}" style="background-color:#bcbcbc; cursor:pointer;">Edit</td>
+                <td id="vx${i}" style="background-color:#bcbcbc; cursor:pointer;">Delete</td>
+            </tr>
+        `;
+        // @ts-ignore
+    }
+    for (let i = 0; i < vocabList.length; i++) {
+        const vocabListElement = vocabList[i];
+        const questionToEdit = {
+            qType: "vocabulary",
+            indexId: i,
+            imgDir: "",
+            op1: "",
+            op2: "",
+            op3: "",
+            op4: "",
+            answer: "",
+            qWord: vocabListElement.word,
+            qSpell: vocabListElement.spelling,
+            qMean: vocabListElement.meaning,
+            qAudio: vocabListElement.audio,
+            wType: vocabListElement.type
+        };
+        const questionToDelete = {
+            qType: "vocabulary",
+            indexId: i
+        };
+        // @ts-ignore
+        (_a = document.getElementById(`v${i}`)) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => updateEdit(questionToEdit));
+        (_b = document.getElementById(`vx${i}`)) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => deleteItem(questionToDelete));
+    }
+};
+const updateUserTable = () => {
+    var _a, _b;
+    let accounts = localStorage.getItem("accounts");
+    if (accounts === null) {
+        console.log("Ko tim thay accounts");
+        return;
+    }
+    let accountList = JSON.parse(accounts);
+    let detail = localStorage.getItem("detailUser");
+    if (detail === null) {
+        console.log("Ko tim thay detailUser");
+        return;
+    }
+    let detailUserList = JSON.parse(detail);
+    let UserTable = document.getElementById("UserTableBody");
+    if (UserTable === null) {
+        return;
+    }
+    UserTable.innerText = "";
+    for (let i = 0; i < accountList.length; i++) {
+        const account = accountList[i];
+        let detail = detailUserList.find(x => x.username === account.username);
+        if (detail === null) {
+            detail = {
+                game1C: 0,
+                game1W: 0,
+                game2C: 0,
+                game2W: 0,
+                game3C: 0,
+                game3W: 0,
+                username: "",
+                wordHistory: []
+            };
+        }
+        UserTable.innerHTML += `
+            <tr>
+                <td>${account.email}</td>
+                <td>${account.username}</td>
+                <td>${account.password}</td>
+                <td>${detail === null || detail === void 0 ? void 0 : detail.game1C}/${detail === null || detail === void 0 ? void 0 : detail.game1W}</td>
+                <td>${detail === null || detail === void 0 ? void 0 : detail.game2C}/${detail === null || detail === void 0 ? void 0 : detail.game2W}</td>
+                <td>${detail === null || detail === void 0 ? void 0 : detail.game3C}/${detail === null || detail === void 0 ? void 0 : detail.game3W}</td>
+                <td>${detail === null || detail === void 0 ? void 0 : detail.wordHistory.join(', ')}</td>
+                <td id="u${i}" style="background-color:#bcbcbc; cursor:pointer;">Edit</td>
+                <td id="ux${i}" style="background-color:#bcbcbc; cursor:pointer;">Delete</td>
+            </tr>
+        `;
+        // @ts-ignore
+    }
+    for (let i = 0; i < accountList.length; i++) {
+        const account = accountList[i];
+        let detail = detailUserList.find(x => x.username === account.username);
+        if (detail === null) {
+            detail = {
+                game1C: 0,
+                game1W: 0,
+                game2C: 0,
+                game2W: 0,
+                game3C: 0,
+                game3W: 0,
+                username: "",
+                wordHistory: []
+            };
+        }
+        const questionToEdit = {
+            indexId: i,
+            qType: "user",
+            qUser: account.username,
+            qPass: account.password,
+            qEmail: account.email,
+            qG1C: detail === null || detail === void 0 ? void 0 : detail.game1C,
+            qG1W: detail === null || detail === void 0 ? void 0 : detail.game1W,
+            qG2C: detail === null || detail === void 0 ? void 0 : detail.game2C,
+            qG2W: detail === null || detail === void 0 ? void 0 : detail.game2W,
+            qG3C: detail === null || detail === void 0 ? void 0 : detail.game3C,
+            qG3W: detail === null || detail === void 0 ? void 0 : detail.game3W
+        };
+        const questionToDelete = {
+            qType: "user",
+            indexId: i
+        };
+        // @ts-ignore
+        (_a = document.getElementById(`u${i}`)) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => updateEdit(questionToEdit));
+        (_b = document.getElementById(`ux${i}`)) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => deleteItem(questionToDelete));
+    }
+};
 updateGuessingTable();
 updateSentenceTable();
+updateVocabTable();
+updateUserTable();
 // @ts-ignore
 window.updateGuessingTable = updateGuessingTable;
 // @ts-ignore
 window.updateSentenceTable = updateSentenceTable;
+// @ts-ignore
+window.updateVocabTable = updateVocabTable;
+// @ts-ignore
+window.updateUserTable = updateUserTable;

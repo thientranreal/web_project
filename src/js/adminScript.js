@@ -68,14 +68,20 @@ $('#menu-close').on('click', close_menu);
 $('#menu-bars').on('click', show_menu);
 // End on / off sider bar=================================================
 
-// On / off sign in========================================================
+// On / off sign in/Uer========================================================
 
 let close_signin = function() {
     let $modal_sign_in = $('#modal-sign-in');
     $modal_sign_in.slideUp();
     //reset form
-    $modal_sign_in.find('#email, #pass, #op1').val('').css('border-bottom', 'solid 1px #f5f5f5');
 }
+
+let close_userEdit = function() {
+    let $modal_user = $('#modal-user');
+    $modal_user.slideUp();
+    //reset form
+}
+
 
 function signInLogOut() {
     let $sign_in = $('#show-sign-in a');
@@ -91,8 +97,8 @@ function signInLogOut() {
     let $button = $('#login-form > input[type="button"]')
     $button.css('display', '')
 
-    if ($qType.text() !== 'vocabulary') {
-        console.log("a")
+    if ($qType.text() === 'question_list' || $qType.text() === 'question_sentence') {
+        console.log("a");
         let $imgDir = $('#imgDir');
         let $imgDirDiv = $('#imgDirDiv');
 
@@ -136,10 +142,11 @@ function signInLogOut() {
         }
 
     }
-
-    else {
+    else if ($qType.text() === 'vocabulary'){
         let $qWord = $('#qWord');
         let $qAudio = $('#qAudio');
+        let $qAudioDirDiv = $('#qAudioDirDiv');
+
         let $wType = $('#wType');
         let $qSpell = $('#qSpell');
         let $qMean = $('#qMean');
@@ -148,6 +155,7 @@ function signInLogOut() {
         $('#login-form > label[for="qWord"]').css('display', '')
 
         $qAudio.css('display','')
+        $qAudioDirDiv.css('display', 'flex');
         $('#login-form > label[for="qAudio"]').css('display', '')
 
         $wType.css('display','')
@@ -159,8 +167,47 @@ function signInLogOut() {
         $qMean.css('display','')
         $('#login-form > label[for="qMean"]').css('display', '')
     }
-}
+    else if ($qType.text() === 'user') {
+        let $qEmail = $('#qEmail');
+        $qEmail.css('display','');
+        $('#login-form > label[for="qEmail"]').css('display', '')
 
+        let $qUser = $('#qUser');
+        $qUser.css('display','')
+        $('#login-form > label[for="qUser"]').css('display', '')
+
+        let $qPass = $('#qPass');
+        $qPass.css('display','')
+        $('#login-form > label[for="qPass"]').css('display', '')
+
+        let $qG1C = $('#qG1C');
+        $qG1C.css('display','')
+        $('#login-form > label[for="qG1C"]').css('display', '')
+
+
+        let $qG1W = $('#qG1W');
+        $qG1W.css('display','')
+        $('#login-form > label[for="qG1W"]').css('display', '')
+
+        let $qG2C = $('#qG2C');
+        $qG2C.css('display','')
+        $('#login-form > label[for="qG2C"]').css('display', '')
+
+
+        let $qG2W = $('#qG2W');
+        $qG2W.css('display','')
+        $('#login-form > label[for="qG2W"]').css('display', '')
+
+        let $qG3C = $('#qG3C');
+        $qG3C.css('display','')
+        $('#login-form > label[for="qG3C"]').css('display', '')
+
+
+        let $qG3W = $('#qG3W');
+        $qG3W.css('display','')
+        $('#login-form > label[for="qG3W"]').css('display', '')
+    }
+}
 
 // File input slide down - workaround....
 var fileInputToTextInput = (event, textInputId) => {
@@ -168,22 +215,17 @@ var fileInputToTextInput = (event, textInputId) => {
     document.getElementById(textInputId).value = './src/' + fileChunk[fileChunk.length-1];
     let $modal_sign_in = $('#modal-sign-in');
     $modal_sign_in.slideDown();
-}
-
+};
 // 
 
 // add event listener
 
 $('#modal-sign-in').on('click', function() {
     $(this).slideUp();
-    $(this).find('#email, #pass').val('').css('border-bottom', 'solid 1px #f5f5f5');
 });
 
 $('#modal-sign-in-wrapper').on('click', function(event) {
     event.stopPropagation();
-});
-$('#login-form > span, #a-join-us, #join-us-res').on('click', function() {
-    window.location.replace('./join_us.html');
 });
 // End on / off sign in========================================================
 
@@ -205,9 +247,18 @@ $('#modal-sign-in form input:last-child').on('click', function() {
     let $qSpell = $('#qSpell');
     let $qMean = $('#qMean');
 
+    let $qEmail = $('#qEmail');
+    let $qUser = $('#qUser');
+    let $qPass = $('#qPass');
+    let $qG1C = $('#qG1C');
+    let $qG1W = $('#qG1W');
+    let $qG2C = $('#qG2C');
+    let $qG2W = $('#qG2W');
+    let $qG3C = $('#qG3C');
+    let $qG3W = $('#qG3W');
 
 
-    if ($qType.text() !== vocabulary) {
+    if ($qType.text() === 'question_list' || $qType.text() === 'question_sentence') {
         if ($imgDir.val().trim() === '' || $op1.val().trim() === '' || 
         $op2.val().trim() === '' || $op3.val().trim() === '' || $op4.val().trim() === '' || 
         $qAudio.val().trim() === '' || $ans.val().trim() === '') {
@@ -266,6 +317,98 @@ $('#modal-sign-in form input:last-child').on('click', function() {
             updateSentenceTable();
         }
     }
+    else if ($qType.text() === 'vocabulary') {
+        if ($qWord.val().trim() === '' || $qAudio.val().trim() === '' || 
+        $wType.val().trim() === '' || $qSpell.val().trim() === '' || $qMean.val().trim() === '') {
+            return;
+        }
+        const wordToReplace = {
+            meaning : $qMean.val(),
+            spelling : $qSpell.val(),
+            type : $wType.val(),
+            word : $qWord.val(),
+            audio : $qAudio.val(),
+        };
+
+        let items = JSON.parse(localStorage.getItem('vocabulary'));
+
+        let index = parseInt($indexId.text());
+        if (index === -1) {
+            index = items.length;
+        }
+
+        if (index < items.length) {
+            items[index] = wordToReplace;
+        }
+        else {
+            items.push(wordToReplace);
+        }
+
+
+        localStorage.setItem('vocabulary',JSON.stringify(items));
+        updateVocabTable();
+
+    }
+    else if ($qType.text() === 'user') {
+        if ($qEmail.val().trim() === '' || $qPass.val().trim() === '' || $qUser.val().trim() === '' ||
+        $qG1C.val().trim() === '' || $qG1W.val().trim() === '' || $qG2C.val().trim() === ''||
+        $qG2W.val().trim() === '' || $qG3C.val().trim() === '' || $qG3W.val().trim() === '') {
+            return;
+        }
+
+        const accountToReplace = {
+            username : $qUser.val(),
+            email : $qEmail.val(),
+            password : $qPass.val(),
+            img_url : ""
+        };
+
+        const accountDetailToReplace = {
+            game1C : parseInt($qG1C.val()),
+            game1W : parseInt($qG1W.val()),
+            game2C : parseInt($qG2C.val()),
+            game2W : parseInt($qG2W.val()),
+            game3C : parseInt($qG3C.val()),
+            game3W : parseInt($qG3W.val()),
+            username : accountToReplace.username,
+        };
+
+        let accounts = JSON.parse(localStorage.getItem('accounts'));
+        let account = accounts.find(x => x.username === accountToReplace.username);
+        if (account === undefined) {
+            accounts.push(accountToReplace);
+        }
+        else {
+            account.username = accountToReplace.username;
+            account.email = accountToReplace.email;
+            account.password = accountToReplace.password;
+        }
+
+        let detailUserList = JSON.parse(localStorage.getItem('detailUser'));
+        let detailUser = detailUserList.find(x=>x.username === accountDetailToReplace.username);
+
+        if (detailUser === undefined) {
+            detailUserList.push(accountToReplace);
+        }
+        else {
+            detailUser.game1C = accountDetailToReplace.game1C;
+            detailUser.game1W = accountDetailToReplace.game1W;
+
+            detailUser.game2C = accountDetailToReplace.game2C;
+            detailUser.game2W = accountDetailToReplace.game2W;
+            
+            detailUser.game3C = accountDetailToReplace.game3C;
+            detailUser.game3W = accountDetailToReplace.game3W;
+        }
+
+        console.log(detailUserList);
+        console.log(detailUser);
+        console.log(accounts);
+
+        localStorage.setItem('accounts', JSON.stringify(accounts));
+        localStorage.setItem('detailUser', JSON.stringify(detailUserList));
+        updateUserTable();
+    }
 
     close_signin();
 
@@ -273,6 +416,17 @@ $('#modal-sign-in form input:last-child').on('click', function() {
     // userinput.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
     // userinput.focus();
 });
+
+$('#modal-sign-in form input:last-child').on('click', function() {
+
+    signInLogOut
+    close_userEdit();
+
+    // pass.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
+    // userinput.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
+    // userinput.focus();
+});
+
 
 let inputChange = function() {
     if ($(this).val() == '') {
@@ -283,6 +437,13 @@ let inputChange = function() {
     }
 }
 // End validate sign in ======================================================
+
+// region Validate Edit User
+$('#modal-user form input:last-child').on('click', function() {
+    close_userEdit();
+});
+// endregion
+
 
 // Search box ================================================================
 function showListWord(current_word, $search_result) {
@@ -368,6 +529,9 @@ function showCorrectWord($search_result, current_word) {
             $search_result.children().on('click', function() {
                 playAudio(word.audio);
             });
+
+            // TK
+
             return;
         }
     }
