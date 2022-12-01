@@ -7,31 +7,6 @@ if (isAdmin !== "admin") {
 let num_guess_game = -1, num_sentence_game = -1;
 let $gap = $('.gap');
 
-// function for increment element in guessing game
-function incrementGuessGame() {
-    if (num_guess_game === question_list.length - 1) {
-        num_guess_game = 0;
-    }
-    else {
-        ++num_guess_game;
-    }
-}
-// function for increment element in sentence game
-function incrementSentenceGame() {
-    if (num_sentence_game === question_sentence.length - 1) {
-        num_sentence_game = 0;
-    }
-    else {
-        ++num_sentence_game;
-    }
-}
-// function for playing audio
-let audio;
-function playAudio(path) {
-    audio = new Audio(path);
-    audio.play();
-}
-
 //======================================================================
 
 // Navbar navigation =======================================================
@@ -110,7 +85,7 @@ function signInLogOut() {
     console.log("Woa")
     $modal_sign_in.slideDown();
 
-    $('#login-form > label, #login-form > input').css('display', 'none')
+    $('#login-form > label, #login-form > input, #login-form > div').css('display', 'none');
     let $indexId = $('#indexId')
     let $qType = $('#qType')
     let $button = $('#login-form > input[type="button"]')
@@ -119,7 +94,10 @@ function signInLogOut() {
     if ($qType.text() !== 'vocabulary') {
         console.log("a")
         let $imgDir = $('#imgDir');
+        let $imgDirDiv = $('#imgDirDiv');
+
         let $qAudio = $('#qAudio');
+        let $qAudioDirDiv = $('#qAudioDirDiv');
         let $op1 = $('#op1');
         let $op2 = $('#op2');
         let $op3 = $('#op3');
@@ -127,9 +105,11 @@ function signInLogOut() {
         let $ans = $('#ans');
 
         $qAudio.css('display', '')
+        $qAudioDirDiv.css('display', 'flex');
         $('#login-form > label[for="qAudio"]').css('display', '')
 
         $imgDir.css('display', '')
+        $imgDirDiv.css('display', 'flex');
         $('#login-form > label[for="imgDir"]').css('display', '')
 
         $op1.css('display', '')
@@ -151,7 +131,8 @@ function signInLogOut() {
 
 
         if ($qType.text() === 'question_sentence') {
-            $('#login-form > label[for="imgDir"').text("Tiếng Việt")
+            $('#login-form > label[for="imgDir"]').text("Tiếng Việt")
+            $('#login-form label[for="imgDirFile"]').css('display', 'none');
         }
 
     }
@@ -163,7 +144,7 @@ function signInLogOut() {
         let $qSpell = $('#qSpell');
         let $qMean = $('#qMean');
 
-        $qWord.css('display','')
+        $qWord.css('display','');
         $('#login-form > label[for="qWord"]').css('display', '')
 
         $qAudio.css('display','')
@@ -177,28 +158,21 @@ function signInLogOut() {
 
         $qMean.css('display','')
         $('#login-form > label[for="qMean"]').css('display', '')
-
-
     }
-    // if ($sign_in.html() == 'Sign In' && $sign_in_res.html() == 'Sign In') {
-    //     $modal_sign_in.slideDown();
-    // }
-    // else {
-    //     $sign_in.html('Sign In');
-    //     $sign_in_res.html('Sign In');
-    //     localStorage.removeItem('active');
-    //     $modal_sign_in.siblings('.gap').children(':first').html('');
-    // }
 }
 
 
-// add event listener
-$('#show-sign-in').on('click', signInLogOut);
+// File input slide down - workaround....
+var fileInputToTextInput = (event, textInputId) => {
+    let fileChunk = event.target.value.split("\\")
+    document.getElementById(textInputId).value = './src/' + fileChunk[fileChunk.length-1];
+    let $modal_sign_in = $('#modal-sign-in');
+    $modal_sign_in.slideDown();
+}
 
-$('#show-sign-in-res').on('click', function() {
-    close_menu();
-    signInLogOut();
-});
+// 
+
+// add event listener
 
 $('#modal-sign-in').on('click', function() {
     $(this).slideUp();
@@ -231,7 +205,16 @@ $('#modal-sign-in form input:last-child').on('click', function() {
     let $qSpell = $('#qSpell');
     let $qMean = $('#qMean');
 
+
+
     if ($qType.text() !== vocabulary) {
+        if ($imgDir.val().trim() === '' || $op1.val().trim() === '' || 
+        $op2.val().trim() === '' || $op3.val().trim() === '' || $op4.val().trim() === '' || 
+        $qAudio.val().trim() === '' || $ans.val().trim() === '') {
+            return;
+        }
+
+
         const questionToReplace = {
             img_url: $imgDir.val(),
             op1 : $op1.val(),
@@ -245,12 +228,18 @@ $('#modal-sign-in form input:last-child').on('click', function() {
 
             let items = JSON.parse(localStorage.getItem('question_list'));
 
-            if (parseInt($indexId.text()) < items.length) {
-                items[$indexId.text()] = questionToReplace;
+            let index = parseInt($indexId.text());
+            if (index === -1) {
+                index = items.length;
+            }
+
+            if (index < items.length) {
+                items[index] = questionToReplace;
             }
             else {
                 items.push(questionToReplace);
             }
+
 
             localStorage.setItem('question_list',JSON.stringify(items));
             updateGuessingTable();
@@ -260,8 +249,14 @@ $('#modal-sign-in form input:last-child').on('click', function() {
             let items = JSON.parse(localStorage.getItem('question_sentence'));
             items[$indexId.text()] = questionToReplace;
 
-            if ($indexId.text < items.length) {
-                items[$indexId.text()] = questionToReplace;
+
+            let index = parseInt($indexId.text())
+            if (index === -1) {
+                index = items.length;
+            }
+
+            if (index < items.length) {
+                items[index] = questionToReplace;
             }
             else {
                 items.push(questionToReplace);
@@ -272,7 +267,7 @@ $('#modal-sign-in form input:last-child').on('click', function() {
         }
     }
 
-    close_signin()
+    close_signin();
 
     // pass.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
     // userinput.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
@@ -287,37 +282,7 @@ let inputChange = function() {
         $(this).css('border-bottom', 'solid 2px rgb(131,58,180)');
     }
 }
-$('#pass, #email').on('input', inputChange);
 // End validate sign in ======================================================
-
-// Show eye for password input ===============================================
-$('#pass').on('input', function() {
-    let css_selector = '#pass+.eye';
-    if ($(this).val() == '') {
-        $(css_selector).hide();
-    }
-    else {
-        $(css_selector).show();
-    }
-});
-
-$('.eye').on('click', function() {
-    let eye_slash = '<i class="fa-regular fa-eye-slash"></i>';
-    let eye = '<i class="fa-regular fa-eye"></i>';
-    // user wants to see password
-    if ($(this).html() == eye) {
-        $(this).html(eye_slash);
-        // eye for password
-        $('#pass').attr('type','text');
-    }
-    // user does not want to see password
-    else if($(this).html() == eye_slash) {
-        $(this).html(eye);
-        // eye for password
-        $('#pass').attr('type','password');
-    }
-});
-// End show eye for password input ===========================================
 
 // Search box ================================================================
 function showListWord(current_word, $search_result) {
@@ -361,6 +326,7 @@ function showListWord(current_word, $search_result) {
         $search_result.html(`<li>${current_word}</li>`);
     }
 }
+
 //search animation
 $('.navbar-search-cart').on('click', function(event) {
     event.stopPropagation();
