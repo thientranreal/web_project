@@ -40,6 +40,17 @@ $(document).ready(function() {
 
 //======================================================================
 
+// Banner Trang chu ====================================================
+var banner_counter = 1;
+    setInterval(function () {
+      document.getElementById("radio" + banner_counter).checked = true;
+      banner_counter++;
+      if (banner_counter > 4) {
+        banner_counter = 1;
+      }
+    }, 4000);
+// End Banner Trang chu ===============================================
+
 // Move to admin site=====================================================
     $('.admin_feature').on('click', function() {
         window.location.replace('./admin.html');
