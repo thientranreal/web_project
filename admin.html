@@ -69,13 +69,15 @@
                 <p id="login-header">Edit</p>
                 <p id="login-text">By doing this you agree to the responsibility of incorrectness to the item at hand.</p>
             </div>
-            <form id="login-form" style="height: max(80vh, 60vh); overflow: auto">
+            <form id="login-form" style="height: max(80vh, 60vh); overflow-y: auto; overflow-x: hidden;">
                 <label id="indexId" style="display: none">1</label>
                 <label id="qType" style="display: none">vocabulary</label>
                 <label for="imgDir">Image Directory</label>
-                <input type="text" id="imgDir">
-                <label for="audioDir">Audio Directory</label>
-                <input type="text" id="audioDir">
+                <div id="imgDirDiv" style=" justify-content: space-between; padding-right: 60px; display: flex; ">
+                    <input type="text" id="imgDir">
+                    <label for="imgDirFile" style="margin-left: 20px;">...</label>
+                    <input id="imgDirFile" style="visibility:hidden; margin-top: 0px; margin-bottom: 0;" type="file" onchange="fileInputToTextInput(event, 'imgDir')">
+                </div>
                 <label for="op1">Option 1</label>
                 <input type="text" id="op1">
                 <label for="op2">Option 2</label>
@@ -90,7 +92,11 @@
                 <label for="qWord">Word</label>
                 <input type="text" id="qWord">
                 <label for="qAudio">Audio</label>
-                <input type="text" id="qAudio">
+                <div id="qAudioDirDiv" style=" justify-content: space-between; padding-right: 60px; display: flex; ">
+                    <input type="text" id="qAudio">
+                    <label for="qAudioDirFile" style="margin-left: 20px;">...</label>
+                    <input id="qAudioDirFile" style="visibility:hidden; margin-top: 0px; margin-bottom: 0;" type="file" onchange="fileInputToTextInput(event, 'qAudio')">
+                </div>
                 <label for="wType">Type</label>
                 <input type="text" id="wType">
                 <label for="qSpell">Spelling</label>
@@ -148,6 +154,7 @@
                     <table class="PSTable" id="GuessingTable" style="width: 100%">
                         <thead style="max-width: 100%;">
                         <tr>
+                            
                             <th style="width: 10%">Img Dir</th>
                             <th style="width: 10%">Audio Dir</th>
                             <th style="width: 25%">Option 1</th>
@@ -164,7 +171,20 @@
                         </tbody>
                         <tfoot id="GuessingTableFooter">
                             <tr>
-                                <td colspan="9" style="background-color: #bcbcbc; cursor: pointer;"><center>Add Item</center></td>
+                                <td colspan="9" style="background-color: #bcbcbc; cursor: pointer;" onclick="updateEdit({
+                                    indexId : -1,
+                                    qType : 'question_list',
+                                    imgDir : '',
+                                    op1 : '',
+                                    op2 : '',
+                                    op3 : '',
+                                    op4 : '',
+                                    answer: '',
+                                    qWord : '',
+                                    qAudio : '',
+                                    qSpell : '',
+                                    qMean : ''
+                                })"><center>Add Item</center></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -203,7 +223,20 @@
                         </tbody>
                         <tfoot id="SentenceTableFooter">
                             <tr>
-                                <td colspan="9" style="background-color: #bcbcbc; cursor: pointer;"><center>Add Item</center></td>
+                                <td colspan="9" style="background-color: #bcbcbc; cursor: pointer;" onclick="updateEdit({
+                                    indexId : -1,
+                                    qType : 'question_sentence',
+                                    imgDir : '',
+                                    op1 : '',
+                                    op2 : '',
+                                    op3 : '',
+                                    op4 : '',
+                                    answer: '',
+                                    qWord : '',
+                                    qAudio : '',
+                                    qSpell : '',
+                                    qMean : ''
+                                })"><center>Add Item</center></td>
                             </tr>
                         </tfoot>
                     </table>

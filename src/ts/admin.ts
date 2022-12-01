@@ -18,7 +18,6 @@ const updateEdit = ( questionToEdit : {
     qMean : string
 }) => {
     const {indexId, qType, imgDir, op1, op2, op3, op4, answer, qAudio, qMean, qSpell, qWord} = questionToEdit
-    console.log("ij");
     
     if (indexId === undefined) {
         return
