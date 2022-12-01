@@ -223,8 +223,9 @@ const updateEdit = ( questionToEdit : {
 const deleteItem = (questionToDelete : {
     indexId : number,
     qType : string,
+    qUser ?: string,
 }) => {
-    const {indexId, qType} = questionToDelete;
+    const {indexId, qType, qUser} = questionToDelete;
     if (qType === 'question_list') {
         // @ts-ignore
         const item = JSON.parse(localStorage.getItem('question_list'))
@@ -246,6 +247,23 @@ const deleteItem = (questionToDelete : {
         item.splice(indexId, 1)
         localStorage.setItem('vocabulary', JSON.stringify(item))
         updateVocabTable()
+    }
+    else if (qType === 'user') {
+        // @ts-ignore
+        const accounts = JSON.parse(localStorage.getItem('accounts'))
+        // @ts-ignore
+        const accIndex = accounts.indexOf(x=>x.username === qUser);
+        accounts.splice(accIndex,1);
+
+        // @ts-ignore
+        const detailUserList = JSON.parse(localStorage.getItem('detailUser'))
+        // @ts-ignore
+        const detailIndex = accounts.indexOf(x=>x.username === qUser);
+        detailUserList.splice(detailIndex,1);
+
+        localStorage.setItem('accounts', JSON.stringify(accounts))
+        localStorage.setItem('detailUser', JSON.stringify(detailUserList))
+        updateUserTable()
     }
 
 }
@@ -308,7 +326,7 @@ const updateGuessingTable = () => {
         }
         const questionToDelete = {
             qType : "question_list",
-            indexId: i
+            indexId: i,
         }
         // @ts-ignore
         document.getElementById(`ql${i}`)?.addEventListener("click", ()=>updateEdit(questionToEdit));
@@ -531,6 +549,7 @@ const updateUserTable = () => {
         }
         const questionToDelete = {
             qType : "user",
+            qUser : account.username,
             indexId: i
         }
 
