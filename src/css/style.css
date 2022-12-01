@@ -3,6 +3,7 @@
     --second-bgcolor: #379683;
     --first-nav-height: 35px;
     --second-nav-height: 60px;
+    --font-color: #05386B;
 }
 
 * {
@@ -94,7 +95,8 @@ span {
 
 .navbar-item-link {
     font-size: 1.1rem;
-    color: black;
+    color: var(--font-color);
+    font-weight: 780;
 }
 
 .navbar-item-icon {
@@ -398,7 +400,7 @@ input {
 #sgquestion,
 #sganswer>span {
     font-size: 1.2rem;
-    color: var(--background-color);
+    color: var(--font-color);
 }
 
 #underline-sganswer {
@@ -430,7 +432,8 @@ input {
     padding-left: 40px;
     padding-top: 20px;
     transition: background-color 0.25s linear;
-    color: var(--background-color);
+    color: var(--font-color);
+    font-weight: 750;
 }
 
 .option:hover {
@@ -540,7 +543,7 @@ input {
     margin-top: 10px;
     padding-top: 15px;
     text-align: center;
-    color: var(--background-color);
+    color: var(--font-color);
 }
 
 .container-lucCute {
@@ -564,7 +567,7 @@ input {
 }
 
 .font {
-    color: var(--background-color);
+    color: var(--font-color);
     text-decoration: none;
     margin-top: 5px;
     display: block;
@@ -575,7 +578,7 @@ input {
     font-size: 22px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 550;
-    color: var(--background-color);
+    color: var(--font-color);
 
 
 }
@@ -734,6 +737,6 @@ input {
 }
 
 #trangchu a {
-    color: var(--background-color);
+    color: var(--font-color);
     text-decoration: none;
 }
