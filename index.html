@@ -40,6 +40,7 @@
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main active" rel="trangchu" href="#">Trang chủ</a></li>
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="guessing-game" href="#" id="trochoi">Trò chơi</a></li>
                     <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="sentence-game" href="#" id="ghepcau">Ghép câu</a></li>
+                    <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="grammar-game" href="#" id="nguphap">Ngữ Pháp</a></li>
                     <li class="navbar-item admin_feature" style="display: none;"><a class="navbar-item-link remove-link navbar-item-link-main" rel="add_word" href="#">Quản lý</a></li>
                 </ul>
                 <div class="navbar-search-cart">
@@ -97,6 +98,7 @@
                     <li><a href="./index.html" class="remove-link sidebar-item active" rel="trangchu">Trang chủ</a></li>
                     <li><a href="#" class="remove-link sidebar-item" rel="guessing-game" id="trochoires">Trò chơi</a></li>
                     <li><a href="#" class="remove-link sidebar-item" rel="sentence-game" id="ghepcaures">Ghép câu</a></li>
+                    <li><a href="#" class="remove-link sidebar-item" rel="grammar-game" id="nguphapres">Ngữ Pháp</a></li>
                     <li class="admin_feature" style="display: none;"><a href="#" class="remove-link sidebar-item" rel="add_word">Quản lý</a></li>
                 </ul>
                 <div class="logo">
@@ -350,7 +352,7 @@
                     <span id="sgquestion">Text</span>
                     <div id="sganswer">
                         <span></span>
-                        <div id="underline-sganswer"></div>
+                        <div class="underline-answer"></div>
                     </div>
                 </div>
                 <div class="option-list">
@@ -365,7 +367,30 @@
                     </div>
                 </div>
             </div>
-<!-- End Sentences game -->    
+<!-- End Sentences game -->
+
+<!-- Grammar game -->
+            <div id="grammar-game" class="panel">
+              <div id="display-grammer">
+                  <span id="grquestion">Text</span>
+                  <div id="granswer">
+                      <span></span>
+                      <div class="underline-answer"></div>
+                  </div>
+              </div>
+              <div class="option-list">
+                  <div class="row-1">
+                      <span class="option">text</span>
+                      <span class="option">text</span>
+                  </div>
+                  
+                  <div class="row-2">
+                      <span class="option">text</span>
+                      <span class="option">text</span>
+                  </div>
+              </div>
+            </div>
+<!-- End Grammar game -->
 
 <!-- Add word -->
             <!-- <div id="add_word" class="panel" style="display: none;">

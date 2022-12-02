@@ -27,7 +27,7 @@ class Word {
     }
 }
 
-let users = [], vocabulary = [], question_list = [], question_sentence = [];
+let users = [], vocabulary = [], question_list = [], question_sentence = [], question_grammar = [];
 
 // local storage user =====================================================================
 if (localStorage.accounts != undefined) {
@@ -93,6 +93,22 @@ else { // default data
     localStorage.setItem('question_sentence', JSON.stringify(question_sentence));
 }
 // end question_sentence =====================================================================
+
+// local storage question_grammar =====================================================================
+if (localStorage.question_grammar != undefined) {
+    question_grammar = JSON.parse(localStorage.question_grammar);
+}
+else { // default data
+    question_grammar = [
+        new Question("The TV station, in _______ to massive popular demand, decided not to discontinue the soap opera.", "reaction", "response", "answer", "reply", "response", ""),
+        new Question(" _____, the people who come to this club are in their twenties and thirties.", "By and large", "Altogether", " To a degree", "Virtually", "By and large", ""),
+        new Question("The little boy pleaded _____ not to leave him alone in the dark.", "with his mother", "on his mother", "his mother", "at his mother", "with his mother", ""),
+        new Question(" _______ raiding for camels was a significant part of Bedouin life has been documented in Wilfed Thesiger’s Arabian Sands.", "That", "Which", "What", "Where", "That", ""),
+        new Question("His emotional problems _______ from the attitudes he encountered as a child, I think.", "stem", "sprout", "flourish", "root", "stem", "")
+    ];
+    localStorage.setItem('question_grammar', JSON.stringify(question_grammar));
+}
+// end question_grammar =====================================================================
 
 // ==========================================================================
 let active;

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // intialize=============================================================
-    let num_guess_game = -1, num_sentence_game = -1;
+    let num_guess_game = -1, num_sentence_game = -1, num_grammar_game = -1;
     let $gap = $('.gap');
     if (localStorage.getItem('active') != undefined) {
         $gap.children(':first').html(`Hello ${active}`);
@@ -29,6 +29,15 @@ $(document).ready(function () {
         }
         else {
             ++num_sentence_game;
+        }
+    }
+    // function for increment element in grammar game
+    function incrementGrammarGame() {
+        if (num_grammar_game === question_grammar.length - 1) {
+            num_grammar_game = 0;
+        }
+        else {
+            ++num_grammar_game;
         }
     }
     // function for playing audio
@@ -343,7 +352,7 @@ $(document).ready(function () {
     // End show eye for password input ===========================================
 
     // Ghep cau game =============================================================
-    function loadDataGhepCau(pointer, options, randomNum, array) {
+    function loadData(pointer, options, randomNum, array) {
         pointer.html(array[randomNum].img_url);
         let op;
         options.css({
@@ -363,7 +372,7 @@ $(document).ready(function () {
         let $toBodyContainer = $('#body-container');
         let $sgquestion = $toBodyContainer.find('#' + sentence_game + ' #sgquestion');
         let options = $toBodyContainer.find('#' + sentence_game + ' .option');
-        loadDataGhepCau($sgquestion, options, num_sentence_game, question_sentence);
+        loadData($sgquestion, options, num_sentence_game, question_sentence);
         let sentence = "Your answer is: ", count = 0, $sganswer = $('#sganswer > span');
         $sganswer.html(sentence);
 
@@ -401,7 +410,7 @@ $(document).ready(function () {
                         "pointer-events": "",
                         "opacity": ""
                     });
-                    loadDataGhepCau($sgquestion, options, num_sentence_game, question_sentence);
+                    loadData($sgquestion, options, num_sentence_game, question_sentence);
 
                     // play audio sentence
                     playAudio(question_sentence[num_sentence_game].audio)
@@ -556,4 +565,52 @@ $(document).ready(function () {
         showListWord(current_word, $search_result);
     });
     // End search for responsive
+
+    // Grammar Game ==========================================================================
+    function startGrammarGame() {
+        incrementGrammarGame();
+        // fill data for game
+        let grammar_game = $(this).attr('rel');
+        let $toBodyContainer = $('#body-container');
+        let $grquestion = $toBodyContainer.find('#' + grammar_game + ' #grquestion');
+        let options = $toBodyContainer.find('#' + grammar_game + ' .option');
+        loadData($grquestion, options, num_grammar_game, question_grammar);
+        let sentence = "Your answer is: ", $granswer = $('#granswer > span');
+        $granswer.html(sentence);
+
+        options.unbind('click');
+        options.on('click', function () {
+            options.css({
+                "pointer-events": "none",
+                "opacity": "0.5"
+            });
+            sentence += $(this).html() + ' ';
+            $granswer.html(sentence);
+
+            // check answer
+            options.css({
+                "opacity": ""
+            });
+            if (sentence.replace('Your answer is: ', '').trim() == question_grammar[num_grammar_game].answer) {
+                $(this).addClass('correct');
+                setDetaisUser(localStorage.getItem('active'), 'game2C');
+            }
+            else {
+                $(this).addClass('wrong');
+                setDetaisUser(localStorage.getItem('active'), 'game2W');
+            }
+            // end check answer
+            // start a new game after 1 second
+            setTimeout(function () {
+                incrementGrammarGame();
+                options.removeClass('correct').removeClass('wrong').css("pointer-events", "");
+                loadData($grquestion, options, num_grammar_game, question_grammar);
+
+                sentence = "Your answer is: ";
+                $granswer.html(sentence);
+            }, 1000);
+        });
+    }
+    $('#nguphap, #nguphapres').on('click', startGrammarGame);
+// End Grammar Game ==========================================================================
 });
