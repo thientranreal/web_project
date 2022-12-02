@@ -35,7 +35,7 @@
                 <img src="./src/img/logo/logo_english.jpg" alt="my_logo" height="100%">
             </a>
             <ul class="navbar-nav navbar-center navbar-nav-res">
-                <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main active" rel="trangchu" href="#">Trang chủ</a></li>
+                <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main active" rel="trangchu" href="#">Tài khoản</a></li>
                 <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="guessing-game" href="#" id="trochoi">Trò chơi</a></li>
                 <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="sentence-game" href="#" id="ghepcau">Ghép câu</a></li>
                 <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game2" href="#">Game2</a></li>
@@ -104,12 +104,32 @@
                 <label for="qMean">Meaning</label>
                 <input type="text" id="qMean">
 
+                <label for="qEmail">Email</label>
+                <input type="text" id="qEmail">
+                <label for="qUser">Username</label>
+                <input type="text" id="qUser">
+                <label for="qPass">Password</label>
+                <input type="text" id="qPass">
+                <label for="qG1C">Trò chơi/Đúng</label>
+                <input type="number" id="qG1C">
+                <label for="qG1W">Trò chơi/Sai</label>
+                <input type="number" id="qG1W">
+                <label for="qG2C">Ghép câu/Đúng</label>
+                <input type="number" id="qG2C">
+                <label for="qG2W">Ghép câu/Sai</label>
+                <input type="number" id="qG2W">
+                <label for="qG3C">Game 3/Đúng</label>
+                <input type="number" id="qG3C">
+                <label for="qG3W">Game 3/Sai</label>
+                <input type="number" id="qG3W">
+                
 
                 <input type="button" value="Save">
             </form>
         </div>
     </div>
     <!-- End Modal sign in -->
+
 
     <!-- Modal sidebar -->
     <div id="modal-container" class="">
@@ -141,7 +161,35 @@
     <div id="body-container">
         <!-- Trang chu -->
         <div id="trangchu" class="panel active">
-            <!-- CHUA LAM -->
+            <!--                Desktop-->
+            <div style="width: 100%; margin-top: 5rem;">
+                <table class="PSTable" id="UserTable" style="width: 100%">
+                    <thead style="max-width: 100%;">
+                    <tr>
+                        <th style="width: 20%">Email</th>
+                        <th style="width: 10%">Username</th>
+                        <th style="width: 10%">Password</th>
+                        <th style="width: 10%">Trò chơi</th>
+                        <th style="width: 10%">Ghép câu</th>
+                        <th style="width: 10%">Game 2</th>
+                        <th style="width: 30%">Tra từ</th>
+                        <th style="width: 20%">Edit</th>
+                        <th style="width: 20%">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="UserTableBody">
+
+                    </tbody>
+                    <tfoot id="UserTableFooter">
+                        <tr>
+                            <td colspan="9" style="background-color: #bcbcbc; cursor: pointer;" onclick="updateEdit({
+                                indexId : -1,
+                                qType : 'user',
+                            })"><center>Add Item</center></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         <!-- End Trang chu -->
 
@@ -252,17 +300,41 @@
 
         <!-- Add word -->
         <div id="add_word" class="panel" style="display: none; padding-top: 150px;">
-            <input type="text" class="search-box" placeholder="Từ vựng">
-            <input type="text" class="search-box" placeholder="Loại từ">
-            <input type="text" class="search-box" placeholder="Phiên âm">
-            <input type="text" class="search-box" placeholder="Nghĩa từ">
-            <div style="display: flex; align-items: center;">
-                <input type="file" id="path_audio" style="width: 100px; margin: 15px 0;">
-                <input type="text" class="search-box" value="./src/audio/" style="margin: 15px 0;" readonly>
-            </div>
-            <div style="display: flex;">
-                <a href="#" id="add_btn" class="remove-link join-us">Add</a>
-                <a href="#" id="delete_btn" class="remove-link join-us">Delete</a>
+            <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                <table class="PSTable" id="VocabTable" style="width: 100%">
+                    <thead style="max-width: 100%;">
+                    <tr>
+                        <th style="width: 10%">Audio Dir</th>
+                        <th style="width: 30%">Meaning</th>
+                        <th style="width: 15%">Spelling</th>
+                        <th style="width: 15%">Type</th>
+                        <th style="width: 15%">Word</th>
+                        <th style="width: 10%">Edit</th>
+                        <th style="width: 10%">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="VocabTableBody">
+
+                    </tbody>
+                    <tfoot id="VocabTableFooter">
+                        <tr>
+                            <td colspan="7" style="background-color: #bcbcbc; cursor: pointer;" onclick="updateEdit({
+                                indexId : -1,
+                                qType : 'vocabulary',
+                                imgDir : '',
+                                op1 : '',
+                                op2 : '',
+                                op3 : '',
+                                op4 : '',
+                                answer: '',
+                                qWord : '',
+                                qAudio : '',
+                                qSpell : '',
+                                qMean : ''
+                            })"><center>Add Item</center></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
         <!-- End add word -->

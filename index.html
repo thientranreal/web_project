@@ -5,9 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/progressCircle.css">
+    <link rel="stylesheet" href="./src/css/Table.css">
+    <link rel="stylesheet" href="./src/css/stats.css">
     <link rel="stylesheet" href="./src/font/fontawesome-free-6.2.1-web/css/all.css">
     <script src="./src/js/database.js" defer></script>
     <script src="./src/js/jquery.js" defer></script>
+    <script src="./src/js/userSetup.js" defer></script>
     <script src="./src/js/script.js" defer></script>
     <title>Document</title>
 </head>
@@ -109,124 +113,217 @@
         </div>
 <!-- End modal sidebar -->
 
-        <div class="gap">
+        <div id="" class="gap" style="flex-direction:column;">
             <span></span>
+ 
         </div>
         
         <div id="body-container">
 <!-- Trang chu -->
-            <div id="trangchu" class="panel active">
-                <div class="banner">
-                    <!-- img slider start -->
-                    <div class="slider">
-                      <div class="slides">
-                        <!-- radio buttons start -->
-                        <input type="radio" name="radio-btn" id="radio1"/>
-                        <input type="radio" name="radio-btn" id="radio2" />
-                        <input type="radio" name="radio-btn" id="radio3" />
-                        <input type="radio" name="radio-btn" id="radio4" />
-          
-                        <!-- radio buttons end -->
-            
-                        <!-- slide img start -->
-                        <div class="slide first">
-                         <div class="anh">
-                          <img src="./src/img/trang_chu/a2.png" alt="">
-                         </div>
-                          <p>
-                            <h1>Cách học từ vựng tiếng anh theo chủ đề cuộc sống</h1>
-                            Bạn có biết vì sao từ “Hello”, “Goodbye” lại được hầu hết mọi người nhớ, nhưng các từ khác thì không phải ai cũng biết? Đó là bởi hai từ này rất thông dụng trong cuộc sống, được áp dụng trong cuộc sống hàng ngày. Vì thế khả năng nhớ từ cao hơn. Tương tự các từ mới khác, bạn hãy tạo ra một câu chuyện về cuộc sống thực tế liên quan tới từ mới đó. Hãy lặp đi lặp lại chúng như một thói quen, chắc chắn bạn sẽ dễ dàng học được.
-          Bạn có thể dùng từ mới vừa học vào các cuộc hội thoại trên Facebook, Instagram,… để nhớ lâu dài hơn. Đây là một cách học từ vựng tiếng Anh siêu tốc bạn nên áp dụng.
-                          </p>
-                        </div>
-                        <div class="slide">
-                         <div class="anh">
-                            <img src="./src/img/trang_chu/a1.jpg" alt="" class="anh" >
-                          
-                          </div>
-                         <p>
-                          <h1> Sử dụng Flashcard </h1>
-                          Flashcard là một công cụ hỗ trợ việc học tiếng Anh phổ biến. Đây là một trong những cách học từ vựng nhanh, hot hit năm 2017, 2018. Là loại thẻ mang thông tin, được sử dụng cho việc học bài trên lớp hoặc trong nghiên cứu cá nhân. Kích thước của Flashcard khá nhỏ (5 cm x 8 cm), dễ mang bên người, thuận tiện cho quá trình học. Người dùng sẽ viết một từ vựng, 1 câu ví dụ ở mặt trước thẻ. Mặt sau ghi nghĩa của từ.
-                         </p>
-                        </div>
-                        <div class="slide">
-                          <div class="anh">
-                            <img src="./src/img/trang_chu/a3.png" alt="">
-                          </div>
-                          <p>
-                            <h1> Cách học từ mới tiếng anh qua phim, bài hát</h1>
-                            Đây là cách học thuộc từ vựng tiếng Anh được khuyến khích, không tạo cho người học cảm giác gò bó hay nhàm chán. Não bộ của chúng ta thường dễ tiếp cận với những sự vật, sự việc giàu cảm xúc. Vì thế đây là một trong những mẹo học từ mới rất được yêu thích. Hãy lựa chọn những bộ phim có thời gian ngắn để tránh chưa học được bao nhiêu mà thành nghiện phim nhé.
-                          </p>
-                        </div>
-                        <!-- slide img end -->
-                        <div class="slide">
-                          <div class="anh">
-                            <img src="./src/img/trang_chu/a4.jpg" alt="">
-                          </div>
-                          <p>
-                           
-                            <h1>Học từ vựng theo cấp độ</h1>
-                            Bạn nên học từ mới tiếng Anh theo cấp độ để tránh phản tác dụng. Hãy học từ mới theo mức độ từ dễ đến khó, từ ít đến nhiều. Ví dụ nếu ngày đầu tiên bạn bắt tay vào học, không nên học quá nhiều sẽ dễ gây chán. Bạn nên đặt kế hoạch cho quá trình học từ mới của bản thân. Không nên học khi không đặt ra mục tiêu rõ ràng. Đây là mẹo học từ vựng tiếng Anh mà bạn không nên bỏ qua.
-                          </p>
-                        </div>
-          
-                        <!-- automatic navigation start -->
-                        <div class="navigation-auto">
-                          <div class="auto-btn1"></div>
-                          <div class="auto-btn2"></div>
-                          <div class="auto-btn3"></div>
-                          <div class="auto-btn4"></div>
-                        </div>
-                        <!-- automatic navigation end -->
-                      </div>
-            
-                      <!-- manual navigation start -->
-                      <div class="navigation-manual">
-                        <label for="radio1" class="manual-btn"></label>
-                        <label for="radio2" class="manual-btn"></label>
-                        <label for="radio3" class="manual-btn"></label>
-                        <label for="radio4" class="manual-btn"></label>
-          
-                      </div>
-                      <!-- manual navigation end -->
-                    </div>
-                    <!-- img slider end -->
-                    
-                  </div>
+            <div id="trangchu" class="panel active" style="flex-direction: column; gap: 1rem">
 
-                  <div class="tl">
-                    <div class="khung">
-                      <a href="https://thcslequydon.bencat.edu.vn/uploads/thcslequydon/tai-nguyen/2017_10/tong-hop-cac-thi-trong-tieng-anh-cong-thuc-cach-su-dung-dau-hieu-nhan-biet.pdf">
-                        
-                      <h2>  
-                        <p>
-                          <i class="fa-sharp fa-solid fa-file-pdf"></i>
-                          12 thì hiện thông dụng trong tiếng anh</p>
-                      </a>
-                    </h2  >
-                    </div>
-                    
-                    <div class="khung">
-                      <a href="https://english.qts.edu.vn/wp-content/uploads/2021/03/3000-tu-vung-tieng-anh-theo-chu-de-qts-english.pdf">
-                        
-                        <h2>  
-                          <p>
-                            <i class="fa-sharp fa-solid fa-file-pdf"></i>
-                            3000 từ vựng cơ bản thông dụng</p>
-                        </a>
-                      </h2 >
-                    </div>
-                    <div class="khung">
-                      <a href="https://drive.google.com/file/d/1tXrTZ1YjLBChRyVeLbngYUbtEYhn-bx5/view?fbclid=IwAR0G7fmoidBecVzKnRTDx_FVd-FPOaGr_NTysYq4tVxIE6uWPKzncyClKDM">
-                        
-                        <h2>  
-                          <p>
-                            <i class="fa-sharp fa-solid fa-file-pdf"></i>
-                            Trọn bộ từ vựng giao tiếp theo chủ để</p>
-                        </a>
-                      </h2 >
-                    </div>
+              <!-- Process  -->
+              <div id="progressDiv" style="display: flex; gap:1rem;">
+              <!-- G1 -->
+              <div style="width: 50%; display: flex; gap: 2rem; border-right: solid 1px black;">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                  "
+                >
+                  <div
+                    style="
+                      position: relative;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    "
+                  >
+                    <div id="g1MiddleCircle" class="middleCircle"></div>
+                    <div id="g1ProgressSpinner" class="progressSpinner"></div>
                   </div>
+                </div>
+      
+                <div id="g1Content" class="contentContainer" data-full="true" >
+                  <div class="contentHead">
+                    <h1 style="font-size: 2rem; margin: 0;">Trò chơi</h1>
+                    <ul class="ulSquare" style="font-size:1.5rem; margin-left: 1.5rem;">
+                      <li id="g1C" style="--color: rgb(48, 104, 155)">Correct: </li>
+                      <li id="g1W" style="--color: red">Wrong: </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+              <!-- G2 -->
+              <div style="width: 50%; display: flex; gap: 2rem;">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                  "
+                >
+                  <div
+                    style="
+                      position: relative;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    "
+                  >
+                    <div id="g2MiddleCircle" class="middleCircle"></div>
+                    <div id="g2ProgressSpinner" class="progressSpinner"></div>
+                  </div>
+                </div>
+      
+                <div id="g2Content" class="contentContainer" data-full="true" >
+                  <div class="contentHead">
+                    <h1 style="font-size: 2rem; margin: 0;">Ghép câu</h1>
+                    <ul class="ulSquare" style="font-size:1.5rem; margin-left: 1.5rem;">
+                      <li id="g2C" style="--color: rgb(48, 104, 155)">Correct: </li>
+                      <li id="g2W" style="--color: red">Wrong: </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+              </div>
+              <!-- History -->
+              <div id="historyDiv">
+                <div style="width: 100%; margin-top: 5rem;">
+                  <table class="PSTable" id="HistoryTable" style="width: 100%">
+                      <thead style="max-width: 100%;">
+                      <tr>
+                        <th style="width: 100vw">History</th>
+                      </tr>
+                      </thead>
+                      <tbody id="HistoryTableBody">
+  
+                      </tbody>
+                  </table>
+              </div>
+              </div>
+            <!-- End -->
+
+
+            <div style="display: flex;">
+              <div class="banner">
+                <!-- img slider start -->
+                <div class="slider">
+                  <div class="slides">
+                    <!-- radio buttons start -->
+                    <input type="radio" name="radio-btn" id="radio1"/>
+                    <input type="radio" name="radio-btn" id="radio2" />
+                    <input type="radio" name="radio-btn" id="radio3" />
+                    <input type="radio" name="radio-btn" id="radio4" />
+      
+                    <!-- radio buttons end -->
+        
+                    <!-- slide img start -->
+                    <div class="slide first">
+                     <div class="anh">
+                      <img src="./src/img/trang_chu/a2.png" alt="">
+                     </div>
+                      <p>
+                        <h1>Cách học từ vựng tiếng anh theo chủ đề cuộc sống</h1>
+                        Bạn có biết vì sao từ “Hello”, “Goodbye” lại được hầu hết mọi người nhớ, nhưng các từ khác thì không phải ai cũng biết? Đó là bởi hai từ này rất thông dụng trong cuộc sống, được áp dụng trong cuộc sống hàng ngày. Vì thế khả năng nhớ từ cao hơn. Tương tự các từ mới khác, bạn hãy tạo ra một câu chuyện về cuộc sống thực tế liên quan tới từ mới đó. Hãy lặp đi lặp lại chúng như một thói quen, chắc chắn bạn sẽ dễ dàng học được.
+      Bạn có thể dùng từ mới vừa học vào các cuộc hội thoại trên Facebook, Instagram,… để nhớ lâu dài hơn. Đây là một cách học từ vựng tiếng Anh siêu tốc bạn nên áp dụng.
+                      </p>
+                    </div>
+                    <div class="slide">
+                     <div class="anh">
+                        <img src="./src/img/trang_chu/a1.jpg" alt="" class="anh" >
+                      
+                      </div>
+                     <p>
+                      <h1> Sử dụng Flashcard </h1>
+                      Flashcard là một công cụ hỗ trợ việc học tiếng Anh phổ biến. Đây là một trong những cách học từ vựng nhanh, hot hit năm 2017, 2018. Là loại thẻ mang thông tin, được sử dụng cho việc học bài trên lớp hoặc trong nghiên cứu cá nhân. Kích thước của Flashcard khá nhỏ (5 cm x 8 cm), dễ mang bên người, thuận tiện cho quá trình học. Người dùng sẽ viết một từ vựng, 1 câu ví dụ ở mặt trước thẻ. Mặt sau ghi nghĩa của từ.
+                     </p>
+                    </div>
+                    <div class="slide">
+                      <div class="anh">
+                        <img src="./src/img/trang_chu/a3.png" alt="">
+                      </div>
+                      <p>
+                        <h1> Cách học từ mới tiếng anh qua phim, bài hát</h1>
+                        Đây là cách học thuộc từ vựng tiếng Anh được khuyến khích, không tạo cho người học cảm giác gò bó hay nhàm chán. Não bộ của chúng ta thường dễ tiếp cận với những sự vật, sự việc giàu cảm xúc. Vì thế đây là một trong những mẹo học từ mới rất được yêu thích. Hãy lựa chọn những bộ phim có thời gian ngắn để tránh chưa học được bao nhiêu mà thành nghiện phim nhé.
+                      </p>
+                    </div>
+                    <!-- slide img end -->
+                    <div class="slide">
+                      <div class="anh">
+                        <img src="./src/img/trang_chu/a4.jpg" alt="">
+                      </div>
+                      <p>
+                       
+                        <h1>Học từ vựng theo cấp độ</h1>
+                        Bạn nên học từ mới tiếng Anh theo cấp độ để tránh phản tác dụng. Hãy học từ mới theo mức độ từ dễ đến khó, từ ít đến nhiều. Ví dụ nếu ngày đầu tiên bạn bắt tay vào học, không nên học quá nhiều sẽ dễ gây chán. Bạn nên đặt kế hoạch cho quá trình học từ mới của bản thân. Không nên học khi không đặt ra mục tiêu rõ ràng. Đây là mẹo học từ vựng tiếng Anh mà bạn không nên bỏ qua.
+                      </p>
+                    </div>
+      
+                    <!-- automatic navigation start -->
+                    <div class="navigation-auto">
+                      <div class="auto-btn1"></div>
+                      <div class="auto-btn2"></div>
+                      <div class="auto-btn3"></div>
+                      <div class="auto-btn4"></div>
+                    </div>
+                    <!-- automatic navigation end -->
+                  </div>
+        
+                  <!-- manual navigation start -->
+                  <div class="navigation-manual">
+                    <label for="radio1" class="manual-btn"></label>
+                    <label for="radio2" class="manual-btn"></label>
+                    <label for="radio3" class="manual-btn"></label>
+                    <label for="radio4" class="manual-btn"></label>
+      
+                  </div>
+                  <!-- manual navigation end -->
+                </div>
+                <!-- img slider end -->
+                
+              </div>
+
+              <div class="tl">
+                <div class="khung">
+                  <a href="https://thcslequydon.bencat.edu.vn/uploads/thcslequydon/tai-nguyen/2017_10/tong-hop-cac-thi-trong-tieng-anh-cong-thuc-cach-su-dung-dau-hieu-nhan-biet.pdf">
+                    
+                  <h2>  
+                    <p>
+                      <i class="fa-sharp fa-solid fa-file-pdf"></i>
+                      12 thì hiện thông dụng trong tiếng anh</p>
+                  </a>
+                </h2  >
+                </div>
+                
+                <div class="khung">
+                  <a href="https://english.qts.edu.vn/wp-content/uploads/2021/03/3000-tu-vung-tieng-anh-theo-chu-de-qts-english.pdf">
+                    
+                    <h2>  
+                      <p>
+                        <i class="fa-sharp fa-solid fa-file-pdf"></i>
+                        3000 từ vựng cơ bản thông dụng</p>
+                    </a>
+                  </h2 >
+                </div>
+                <div class="khung">
+                  <a href="https://drive.google.com/file/d/1tXrTZ1YjLBChRyVeLbngYUbtEYhn-bx5/view?fbclid=IwAR0G7fmoidBecVzKnRTDx_FVd-FPOaGr_NTysYq4tVxIE6uWPKzncyClKDM">
+                    
+                    <h2>  
+                      <p>
+                        <i class="fa-sharp fa-solid fa-file-pdf"></i>
+                        Trọn bộ từ vựng giao tiếp theo chủ để</p>
+                    </a>
+                  </h2 >
+                </div>
+              </div>
+            </div>
+
+
             </div>
 <!-- End Trang chu --> 
 
