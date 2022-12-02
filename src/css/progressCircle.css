@@ -21,3 +21,14 @@
   font-size: large;
   font-weight: bold;
 }
+
+.mainProcess {
+  display: flex; 
+  gap:1rem;
+}
+
+@media only screen and (max-width: 930px){
+	.mainProcess {
+    flex-direction: column;
+  }
+}

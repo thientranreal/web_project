@@ -19,7 +19,7 @@
     <!-- Navbar -->
     <nav id="navbar">
         <div class="navbar-small">
-            <a href="#" class="navbar-link-img">
+            <a href="./index.html" class="navbar-link-img">
                 <img src="./src/img/logo/T.jpeg" alt="my_logo" height="100%">
             </a>
             <ul class="navbar-nav">
@@ -31,14 +31,14 @@
             </ul>
         </div>
         <div class="navbar-main navbar-main-res">
-            <a href="#" class="navbar-link-img">
+            <a href="./index.html" class="navbar-link-img">
                 <img src="./src/img/logo/logo_english.jpg" alt="my_logo" height="100%">
             </a>
             <ul class="navbar-nav navbar-center navbar-nav-res">
                 <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main active" rel="trangchu" href="#">Tài khoản</a></li>
                 <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="guessing-game" href="#" id="trochoi">Trò chơi</a></li>
                 <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="sentence-game" href="#" id="ghepcau">Ghép câu</a></li>
-                <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game2" href="#">Game2</a></li>
+                <li class="navbar-item"><a class="navbar-item-link remove-link navbar-item-link-main" rel="game2" href="#">Grammar</a></li>
                 <li class="navbar-item admin_feature"><a class="navbar-item-link remove-link navbar-item-link-main" rel="add_word" href="#">Thêm từ</a></li>
             </ul>
             <div class="navbar-search-cart">
@@ -118,9 +118,9 @@
                 <input type="number" id="qG2C">
                 <label for="qG2W">Ghép câu/Sai</label>
                 <input type="number" id="qG2W">
-                <label for="qG3C">Game 3/Đúng</label>
+                <label for="qG3C">Grammar/Đúng</label>
                 <input type="number" id="qG3C">
-                <label for="qG3W">Game 3/Sai</label>
+                <label for="qG3W">Grammar/Sai</label>
                 <input type="number" id="qG3W">
                 
 
@@ -171,7 +171,7 @@
                         <th style="width: 10%">Password</th>
                         <th style="width: 10%">Trò chơi</th>
                         <th style="width: 10%">Ghép câu</th>
-                        <th style="width: 10%">Game 2</th>
+                        <th style="width: 10%">Grammar</th>
                         <th style="width: 30%">Tra từ</th>
                         <th style="width: 20%">Edit</th>
                         <th style="width: 20%">Delete</th>
@@ -294,7 +294,43 @@
 
         <!-- Game 2 -->
         <div id="game2" class="panel">
-            <!-- CHUA LAM -->
+            <div style="width: 100%; display: flex; align-items: center; justify-content: center; padding-top: 9rem">
+                <table class="PSTable" id="QuestionTable" style="width: 100%">
+                    <thead style="max-width: 100%;">
+                    <tr>
+                        <th style="width: 50%">Question</th>
+                        <th style="width: 15%">Option 1</th>
+                        <th style="width: 15%">Option 2</th>
+                        <th style="width: 15%">Option 3</th>
+                        <th style="width: 15%">Option 4</th>
+                        <th style="width: 15%">Correct Answer</th>
+                        <th style="width: 20%">Edit</th>
+                        <th style="width: 20%">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="GrammarTableBody">
+
+                    </tbody>
+                    <tfoot id="GrammarTableFooter">
+                        <tr>
+                            <td colspan="9" style="background-color: #bcbcbc; cursor: pointer;" onclick="updateEdit({
+                                indexId : -1,
+                                qType : 'question_grammar',
+                                imgDir : '',
+                                op1 : '',
+                                op2 : '',
+                                op3 : '',
+                                op4 : '',
+                                answer: '',
+                                qWord : '',
+                                qAudio : '',
+                                qSpell : '',
+                                qMean : ''
+                            })"><center>Add Item</center></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         <!-- End Game 2 -->
 

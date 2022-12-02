@@ -97,7 +97,7 @@ function signInLogOut() {
     let $button = $('#login-form > input[type="button"]')
     $button.css('display', '')
 
-    if ($qType.text() === 'question_list' || $qType.text() === 'question_sentence') {
+    if ($qType.text() === 'question_list' || $qType.text() === 'question_sentence' || $qType.text() === 'question_grammar') {
         console.log("a");
         let $imgDir = $('#imgDir');
         let $imgDirDiv = $('#imgDirDiv');
@@ -138,6 +138,15 @@ function signInLogOut() {
 
         if ($qType.text() === 'question_sentence') {
             $('#login-form > label[for="imgDir"]').text("Tiếng Việt")
+            $('#login-form label[for="imgDirFile"]').css('display', 'none');
+        }
+        if ($qType.text() === 'question_grammar') {
+            $qAudio.css('display', 'none')
+            $qAudioDirDiv.css('display', 'none');
+            $('#login-form > label[for="qAudio"]').css('display', 'none');
+
+
+            $('#login-form > label[for="imgDir"]').text("Question")
             $('#login-form label[for="imgDirFile"]').css('display', 'none');
         }
 
@@ -211,8 +220,14 @@ function signInLogOut() {
 
 // File input slide down - workaround....
 var fileInputToTextInput = (event, textInputId) => {
-    let fileChunk = event.target.value.split("\\")
-    document.getElementById(textInputId).value = './src/' + fileChunk[fileChunk.length-1];
+    let fileChunk = event.target.value.split("\\");
+    let fileName = fileChunk[fileChunk.length-1]
+    if (fileName.includes('.png') || fileName.includes('.jpg') || fileName.includes('.jpeg')) {
+        document.getElementById(textInputId).value = './src/img/game_image/' + fileName;
+    }
+    else {
+        document.getElementById(textInputId).value = './src/audio/' + fileName;
+    }
     let $modal_sign_in = $('#modal-sign-in');
     $modal_sign_in.slideDown();
 };
@@ -316,6 +331,42 @@ $('#modal-sign-in form input:last-child').on('click', function() {
             localStorage.setItem('question_sentence',JSON.stringify(items));
             updateSentenceTable();
         }
+    }
+    else if ($qType.text() === 'question_grammar') {
+        if ($imgDir.val().trim() === '' || $op1.val().trim() === '' || 
+        $op2.val().trim() === '' || $op3.val().trim() === '' || $op4.val().trim() === '' || 
+        $ans.val().trim() === '') {
+            return;
+        }
+
+        const questionToReplace = {
+            img_url: $imgDir.val(),
+            op1 : $op1.val(),
+            op2 : $op2.val(),
+            op3 : $op3.val(),
+            op4 : $op4.val(),
+            audio : "",
+            answer : $ans.val()
+        };
+
+        let items = JSON.parse(localStorage.getItem('question_grammar'));
+
+        let index = parseInt($indexId.text());
+        if (index === -1) {
+            index = items.length;
+        }
+
+        if (index < items.length) {
+            items[index] = questionToReplace;
+        }
+        else {
+            items.push(questionToReplace);
+        }
+
+
+        localStorage.setItem('question_grammar',JSON.stringify(items));
+        updateGrammarTable();
+
     }
     else if ($qType.text() === 'vocabulary') {
         if ($qWord.val().trim() === '' || $qAudio.val().trim() === '' || 
@@ -421,10 +472,6 @@ $('#modal-sign-in form input:last-child').on('click', function() {
 
     signInLogOut
     close_userEdit();
-
-    // pass.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
-    // userinput.css('border-bottom', 'solid 2px rgb(246, 66, 66)');
-    // userinput.focus();
 });
 
 
