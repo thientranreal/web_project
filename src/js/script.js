@@ -143,6 +143,12 @@ $(document).ready(function () {
             case 'game2W':
                 user.game2W++;
                 break;
+            case 'game3C':
+                user.game3C++;
+                break;
+            case 'game3W':
+                user.game3W++;
+                break;
             case 'wordHistory':
                 const val = user.wordHistory.find(x=>x === optional);
                 if (val) {
