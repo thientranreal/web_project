@@ -1,8 +1,4 @@
 "use strict";
-var _a;
-console.log("a");
-// @ts-ignore
-(_a = document.getElementById('indexId')) === null || _a === void 0 ? void 0 : _a.innerText = "2";
 const updateEdit = (questionToEdit) => {
     const { indexId, qType, imgDir, op1, op2, op3, op4, answer, qAudio, wType, qMean, qEmail, qSpell, qWord, qG1C, qG1W, qG2C, qG2W, qG3C, qG3W, qPass, qUser } = questionToEdit;
     if (indexId === undefined) {
@@ -168,6 +164,13 @@ const deleteItem = (questionToDelete) => {
         localStorage.setItem('vocabulary', JSON.stringify(item));
         updateVocabTable();
     }
+    else if (qType === 'question_grammar') {
+        // @ts-ignore
+        const item = JSON.parse(localStorage.getItem('question_grammar'));
+        item.splice(indexId, 1);
+        localStorage.setItem('question_grammar', JSON.stringify(item));
+        updateGrammarTable();
+    }
     else if (qType === 'user') {
         // @ts-ignore
         const accounts = JSON.parse(localStorage.getItem('accounts'));
@@ -186,7 +189,6 @@ const deleteItem = (questionToDelete) => {
 };
 const updateGuessingTable = () => {
     var _a, _b;
-    console.log("b");
     let questionItem = localStorage.getItem("question_list");
     if (questionItem === null) {
         console.log("Ko tim thay question_list");
@@ -301,6 +303,59 @@ const updateSentenceTable = () => {
         // @ts-ignore
         (_a = document.getElementById(`sl${i}`)) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => updateEdit(questionToEdit));
         (_b = document.getElementById(`slx${i}`)) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => deleteItem(questionToDelete));
+    }
+};
+const updateGrammarTable = () => {
+    var _a, _b;
+    let questionItem = localStorage.getItem("question_grammar");
+    if (questionItem === null) {
+        console.log("Ko tim thay question_grammar");
+        return;
+    }
+    let questionList = JSON.parse(questionItem);
+    let sentenceTable = document.getElementById("GrammarTableBody");
+    if (sentenceTable === null) {
+        return;
+    }
+    sentenceTable.innerText = "";
+    for (let i = 0; i < questionList.length; i++) {
+        const questionListElement = questionList[i];
+        sentenceTable.innerHTML += `
+            <tr>
+                <td>${questionListElement.img_url}</td>
+                <td>${questionListElement.op1}</td>
+                <td>${questionListElement.op2}</td>
+                <td>${questionListElement.op3}</td>
+                <td>${questionListElement.op4}</td>
+                <td>${questionListElement.answer}</td>
+                <td id="gl${i}" style="background-color:#bcbcbc; cursor:pointer;">Edit</td>
+                <td id="glx${i}" style="background-color:#bcbcbc; cursor:pointer;">Delete</td>
+            </tr>
+        `;
+        // @ts-ignore
+    }
+    for (let i = 0; i < questionList.length; i++) {
+        const questionListElement = questionList[i];
+        const questionToEdit = {
+            qType: "question_grammar",
+            indexId: i,
+            imgDir: questionListElement.img_url,
+            op1: questionListElement.op1,
+            op2: questionListElement.op2,
+            op3: questionListElement.op3,
+            op4: questionListElement.op4,
+            answer: questionListElement.answer,
+            qWord: "",
+            qSpell: "",
+            qMean: "",
+        };
+        const questionToDelete = {
+            qType: "question_grammar",
+            indexId: i
+        };
+        // @ts-ignore
+        (_a = document.getElementById(`gl${i}`)) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => updateEdit(questionToEdit));
+        (_b = document.getElementById(`glx${i}`)) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => deleteItem(questionToDelete));
     }
 };
 const updateVocabTable = () => {
@@ -450,6 +505,7 @@ updateGuessingTable();
 updateSentenceTable();
 updateVocabTable();
 updateUserTable();
+updateGrammarTable();
 // @ts-ignore
 window.updateGuessingTable = updateGuessingTable;
 // @ts-ignore
@@ -458,3 +514,5 @@ window.updateSentenceTable = updateSentenceTable;
 window.updateVocabTable = updateVocabTable;
 // @ts-ignore
 window.updateUserTable = updateUserTable;
+// @ts-ignore
+window.updateGrammarTable = updateGuessingTable;

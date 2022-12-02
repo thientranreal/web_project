@@ -62,6 +62,27 @@ const setG2Progress = () => {
     setProgress(spinner, spinnerText, correct, wrong, correct + wrong);
 };
 
+const setG3Progress = () => {
+    let detailUser = localStorage.getItem('detailUser') ? JSON.parse(localStorage.getItem('detailUser')) : [];
+    let user = detailUser.find(x=>x.username == localStorage.getItem('active'));
+    if (user === undefined) {
+        return;
+    }
+ 
+    let correct = user.game3C;
+    let wrong = user.game3W;
+
+    let g3C = getElement('g3C');
+    let g3W = getElement('g3W');
+
+    setElemText(g3C, `Correct: ${correct}`);
+    setElemText(g3W, `Wrong: ${wrong}`);
+
+    let spinner = getElement("g3ProgressSpinner");
+    let spinnerText = getElement("g3MiddleCircle");
+    setProgress(spinner, spinnerText, correct, wrong, correct + wrong);
+};
+
 const setHistory = () => {
     let detailUser = localStorage.getItem('detailUser') ? JSON.parse(localStorage.getItem('detailUser')) : [];
     let user = detailUser.find(x=>x.username == localStorage.getItem('active'));
@@ -95,10 +116,12 @@ const showProgress = () => {
 
 setG1Progress();
 setG2Progress();
+setG3Progress();
 setHistory();
 showProgress();
 
 setInterval((setG1Progress), 4000);
 setInterval((setG2Progress), 4000);
+setInterval((setG3Progress), 4000);
 setInterval((setHistory), 4000);
-setInterval((showProgress), 4000);
+setInterval((showProgress), 1000);

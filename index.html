@@ -125,9 +125,9 @@
             <div id="trangchu" class="panel active" style="flex-direction: column; gap: 1rem">
 
               <!-- Process  -->
-              <div id="progressDiv" style="display: flex; gap:1rem;">
+              <div id="progressDiv" class="mainProcess">
               <!-- G1 -->
-              <div style="width: 50%; display: flex; gap: 2rem; border-right: solid 1px black;">
+              <div style="width: max(33.3%, 25rem); display: flex; gap: 2rem; border-right: solid 1px black;">
                 <div
                   style="
                     display: flex;
@@ -160,7 +160,7 @@
                 </div>
             </div>
               <!-- G2 -->
-              <div style="width: 50%; display: flex; gap: 2rem;">
+              <div style="width: max(33.3%, 25rem); display: flex; gap: 2rem; border-right: solid 1px black;">
                 <div
                   style="
                     display: flex;
@@ -192,6 +192,41 @@
                   </div>
                 </div>
             </div>
+
+            <!-- G3 -->
+            <div style="width: max(33.3%, 25rem); display: flex; gap: 2rem; border-right: solid 1px black;">
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                "
+              >
+                <div
+                  style="
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <div id="g3MiddleCircle" class="middleCircle"></div>
+                  <div id="g3ProgressSpinner" class="progressSpinner"></div>
+                </div>
+              </div>
+    
+              <div id="g3Content" class="contentContainer" data-full="true" >
+                <div class="contentHead">
+                  <h1 style="font-size: 2rem; margin: 0;">Grammar</h1>
+                  <ul class="ulSquare" style="font-size:1.5rem; margin-left: 1.5rem;">
+                    <li id="g3C" style="--color: rgb(48, 104, 155)">Correct: </li>
+                    <li id="g3W" style="--color: red">Wrong: </li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+
               </div>
               <!-- History -->
               <div id="historyDiv">
