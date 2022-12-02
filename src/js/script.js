@@ -593,11 +593,11 @@ $(document).ready(function () {
             });
             if (sentence.replace('Your answer is: ', '').trim() == question_grammar[num_grammar_game].answer) {
                 $(this).addClass('correct');
-                setDetaisUser(localStorage.getItem('active'), 'game2C');
+                setDetaisUser(localStorage.getItem('active'), 'game3C');
             }
             else {
                 $(this).addClass('wrong');
-                setDetaisUser(localStorage.getItem('active'), 'game2W');
+                setDetaisUser(localStorage.getItem('active'), 'game3W');
             }
             // end check answer
             // start a new game after 1 second
